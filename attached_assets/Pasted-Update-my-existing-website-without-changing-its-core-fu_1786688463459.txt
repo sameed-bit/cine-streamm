@@ -1,0 +1,82 @@
+Update my existing website without changing its core functionality, content, features, or overall structure. The website is already working correctly, so focus mainly on the visual design and final file structure.
+
+### Design changes
+
+1. **Red Velvet Theme**
+
+   * Give the entire website a premium, elegant red velvet aesthetic.
+   * Use deep velvet red / burgundy / wine tones with subtle darker shades.
+   * Keep the design sophisticated and clean, not overly flashy.
+   * Use subtle gradients, shadows, borders, and glass-like elements only where they improve the premium appearance.
+   * Avoid excessive effects, animations, or decorations.
+
+2. **Typography**
+
+   * Replace the current typography with a clean, modern font style inspired by Apple's iOS design language.
+   * Text should feel similar to Apple's clean and refined typography.
+   * Improve font sizes, spacing, line heights, headings, buttons, and overall readability.
+   * Do not make text unnecessarily large.
+   * Keep everything balanced and premium.
+
+3. **Remove Authentication UI Completely**
+
+   * Remove the Sign In button/page.
+   * Remove the Sign Up button/page.
+   * Remove login forms, registration forms, authentication prompts, and any unnecessary account-related UI.
+   * The website should open directly to the main website without asking the user to log in or create an account.
+   * Make sure removing authentication does not break any other existing functionality.
+
+4. **Professional / Human-Made Appearance**
+
+   * Make the website look like it was designed by a professional UI/UX designer.
+   * Avoid anything that makes it look obviously AI-generated.
+   * Use emojis very sparingly. Remove unnecessary emojis from buttons, headings, cards, navigation, and decorative elements.
+   * Prefer clean icons or simple UI elements instead of emojis where appropriate.
+   * Keep the existing content and functionality unless a change is specifically required above.
+
+5. **Responsive Design**
+
+   * Make sure the website looks excellent on desktop, tablet, and mobile.
+   * Pay particular attention to mobile spacing, typography, buttons, cards, and navigation.
+   * Maintain a polished iPhone-like visual feel on smaller screens.
+
+### Favicon
+
+Add a professional favicon for the website.
+
+* Create a favicon that matches the existing website's branding and the new red velvet aesthetic.
+* If the website already has a logo or recognizable brand mark, use that as the basis for the favicon.
+* Keep the favicon simple and recognizable at small sizes.
+* Use an appropriate favicon format such as `.svg` and/or `.png`.
+* Add the correct favicon reference inside the `<head>` of `index.html`.
+* Make sure the favicon appears correctly in the browser tab.
+* Do not use a random generic emoji as the favicon.
+
+### Important requirement: index.html
+
+Create a proper **`index.html`** in the root of the project.
+
+I need the website to be runnable through `index.html`.
+
+If the current project uses React, Vite, Next.js, or another framework, do NOT simply create an empty placeholder `index.html`. Convert/build the existing website appropriately so that the final website can actually be launched from the generated `index.html` while preserving its current functionality.
+
+The final `index.html` should contain or correctly reference everything required for the website to work. Do not break the existing website.
+
+Make sure all required CSS, JavaScript, images, fonts, icons, and other assets are correctly connected and paths work when the project is opened/launched.
+
+### Final checks
+
+Before finishing:
+
+* Verify that the website still works.
+* Verify that Sign In and Sign Up are completely gone.
+* Verify that the red velvet theme is applied consistently.
+* Verify typography and font sizes throughout the website.
+* Remove unnecessary emojis.
+* Verify mobile responsiveness.
+* Verify that the favicon works.
+* Verify that `index.html` exists in the project root.
+* Verify that the website can actually be launched through the generated `index.html`.
+* Verify that all asset paths are correct.
+* Do not remove or break existing features just to implement the visual changes.
+* Do not replace working functionality with placeholders.

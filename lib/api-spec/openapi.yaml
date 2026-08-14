@@ -1,0 +1,294 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: Cinema Stream API
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: catalog
+    description: TMDB-backed movie and TV catalog operations
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+  /catalog/trending:
+    get:
+      operationId: getTrending
+      tags: [catalog]
+      summary: Get trending movies and shows
+      responses:
+        "200":
+          description: Trending catalog items
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MediaList"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailable"
+  /catalog/discover:
+    get:
+      operationId: getDiscoverMedia
+      tags: [catalog]
+      summary: Get a curated catalog collection
+      parameters:
+        - $ref: "#/components/parameters/MediaType"
+        - name: category
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [popular, top_rated, now_playing, upcoming]
+        - name: genre
+          in: query
+          required: false
+          schema:
+            type: number
+      responses:
+        "200":
+          description: Catalog collection
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MediaList"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailable"
+  /catalog/search:
+    get:
+      operationId: searchCatalog
+      tags: [catalog]
+      summary: Search movies, shows, and people
+      parameters:
+        - name: query
+          in: query
+          required: true
+          schema:
+            type: string
+            minLength: 1
+        - name: filter
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [all, movie, tv, person]
+            default: all
+      responses:
+        "200":
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SearchResults"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailable"
+  /catalog/genres:
+    get:
+      operationId: getGenres
+      tags: [catalog]
+      summary: Get movie and TV genres
+      responses:
+        "200":
+          description: Genre lists
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenreResponse"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailable"
+  /catalog/movie/{id}:
+    get:
+      operationId: getMovieDetails
+      tags: [catalog]
+      summary: Get movie details
+      parameters:
+        - $ref: "#/components/parameters/MediaId"
+      responses:
+        "200":
+          description: Movie details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MediaDetails"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailable"
+  /catalog/tv/{id}:
+    get:
+      operationId: getTvDetails
+      tags: [catalog]
+      summary: Get TV show details
+      parameters:
+        - $ref: "#/components/parameters/MediaId"
+      responses:
+        "200":
+          description: TV show details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MediaDetails"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailable"
+components:
+  parameters:
+    MediaId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: number
+        minimum: 1
+    MediaType:
+      name: type
+      in: query
+      required: true
+      schema:
+        type: string
+        enum: [movie, tv]
+  responses:
+    NotFound:
+      description: Content not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+    ServiceUnavailable:
+      description: Catalog service unavailable
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required: [status]
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required: [error]
+    Media:
+      type: object
+      properties:
+        id: { type: number }
+        media_type: { type: string, enum: [movie, tv] }
+        title: { type: string }
+        overview: { type: string }
+        poster_path: { type: ["string", "null"] }
+        backdrop_path: { type: ["string", "null"] }
+        release_date: { type: ["string", "null"] }
+        vote_average: { type: number }
+        vote_count: { type: number }
+        genre_ids:
+          type: array
+          items: { type: number }
+      required:
+        - id
+        - media_type
+        - title
+        - overview
+        - poster_path
+        - backdrop_path
+        - release_date
+        - vote_average
+        - vote_count
+        - genre_ids
+    MediaList:
+      type: object
+      properties:
+        items:
+          type: array
+          items: { $ref: "#/components/schemas/Media" }
+        page: { type: number }
+        total_pages: { type: number }
+      required: [items, page, total_pages]
+    MediaDetails:
+      allOf:
+        - $ref: "#/components/schemas/Media"
+        - type: object
+          properties:
+            runtime: { type: ["number", "null"] }
+            genres:
+              type: array
+              items: { $ref: "#/components/schemas/Genre" }
+            seasons:
+              type: array
+              items: { $ref: "#/components/schemas/Season" }
+            cast:
+              type: array
+              items: { $ref: "#/components/schemas/CastMember" }
+            production_companies:
+              type: array
+              items: { type: string }
+          required: [runtime, genres, seasons, cast, production_companies]
+    SearchResults:
+      type: object
+      properties:
+        items:
+          type: array
+          items: { $ref: "#/components/schemas/Media" }
+        people:
+          type: array
+          items: { $ref: "#/components/schemas/Person" }
+        total_results: { type: number }
+      required: [items, people, total_results]
+    Genre:
+      type: object
+      properties:
+        id: { type: number }
+        name: { type: string }
+      required: [id, name]
+    GenreResponse:
+      type: object
+      properties:
+        movies:
+          type: array
+          items: { $ref: "#/components/schemas/Genre" }
+        tv:
+          type: array
+          items: { $ref: "#/components/schemas/Genre" }
+      required: [movies, tv]
+    Season:
+      type: object
+      properties:
+        season_number: { type: number }
+        name: { type: string }
+        episode_count: { type: number }
+        air_date: { type: ["string", "null"] }
+      required: [season_number, name, episode_count, air_date]
+    CastMember:
+      type: object
+      properties:
+        id: { type: number }
+        name: { type: string }
+        character: { type: string }
+        profile_path: { type: ["string", "null"] }
+      required: [id, name, character, profile_path]
+    Person:
+      type: object
+      properties:
+        id: { type: number }
+        name: { type: string }
+        profile_path: { type: ["string", "null"] }
+        known_for_department: { type: string }
+      required: [id, name, profile_path, known_for_department]
+

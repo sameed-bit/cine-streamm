@@ -1,0 +1,910 @@
+Build a complete, production-quality Netflix-style movie and TV streaming platform.
+
+The project should be a real working full-stack application, not just a visual mockup.
+
+## TECH STACK
+
+Use:
+
+* React
+* TypeScript
+* Vite
+* Tailwind CSS
+* shadcn/ui
+* React Router
+* Supabase for authentication and database
+* TMDB API for movie, TV, actor, poster and backdrop metadata
+* Responsive iframe-based video player integration
+* Clean reusable component architecture
+
+Use environment variables for all API keys and secrets.
+
+Never expose private server-side secrets in frontend code.
+
+---
+
+# 1. BRAND / DESIGN
+
+Create a premium cinematic streaming interface inspired by modern streaming platforms, but do NOT copy Netflix's logo, branding, copyrighted assets, or exact UI.
+
+Use:
+
+* Very dark background
+* Large cinematic hero banners
+* High-quality poster cards
+* Rounded cards
+* Smooth hover animations
+* Gradient overlays
+* Glassmorphism where appropriate
+* Red/crimson accent color
+* White and muted-gray typography
+* Large cinematic typography
+* Mobile-first responsive design
+
+The website should feel polished and production-ready.
+
+Add subtle animations for:
+
+* Card hover
+* Page transitions
+* Modal opening
+* Navbar
+* Hero carousel
+* Loading states
+
+---
+
+# 2. NAVIGATION
+
+Create a responsive navbar.
+
+Desktop:
+
+* Logo
+* Home
+* Movies
+* TV Shows
+* Genres
+* Search
+* My List
+* Profile
+
+Mobile:
+
+* Logo
+* Search icon
+* Profile icon
+* Hamburger menu
+
+Navbar should become transparent over the hero section and solid/dark when scrolling.
+
+---
+
+# 3. HOME PAGE
+
+Create a cinematic homepage.
+
+Hero section:
+
+* Large backdrop image
+* Movie/TV title
+* Description
+* Rating
+* Release year
+* Genre
+* Watch Now button
+* More Info button
+* Gradient overlay
+* Auto-changing featured content
+
+Below the hero:
+
+## Trending Now
+
+Horizontal movie carousel.
+
+## Popular Movies
+
+Responsive movie grid/carousel.
+
+## Popular TV Shows
+
+Responsive TV grid/carousel.
+
+## Top Rated
+
+Display highly rated content.
+
+## Now Playing
+
+Display currently popular/current movie content.
+
+## Continue Watching
+
+Only display for logged-in users.
+
+Show:
+
+* Poster
+* Title
+* Progress bar
+* Percentage watched
+* Resume button
+
+## Recommended For You
+
+Generate recommendations based on the user's watch history.
+
+---
+
+# 4. TMDB API
+
+Integrate TMDB API properly.
+
+Create a dedicated service layer:
+
+src/services/tmdb.ts
+
+Do not scatter API calls throughout components.
+
+Support:
+
+* Trending movies
+* Popular movies
+* Popular TV shows
+* Top rated movies
+* Top rated TV
+* Now playing
+* Upcoming
+* Movie details
+* TV details
+* Credits
+* Similar movies
+* Similar TV shows
+* Search movies
+* Search TV
+* Search people
+* Genres
+* Movie images
+* TV images
+
+Create reusable functions such as:
+
+getTrending()
+getPopularMovies()
+getPopularTV()
+getMovieDetails(id)
+getTVDetails(id)
+getMovieCredits(id)
+getTVCredits(id)
+searchMulti(query)
+getSimilarMovies(id)
+getSimilarTV(id)
+
+Use TMDB's current API authentication approach and keep credentials in environment variables.
+
+Use TMDB image paths correctly.
+
+Add TMDB attribution in the About/Credits section:
+
+"This product uses the TMDB API but is not endorsed or certified by TMDB."
+
+---
+
+# 5. MOVIE CARD
+
+Create a reusable MovieCard component.
+
+Display:
+
+* Poster
+* Title
+* Year
+* Rating
+* Movie/TV badge
+
+On hover:
+
+* Slight scale animation
+* Dark overlay
+* Play button
+* Add to My List button
+* More Info button
+
+Clicking the card opens:
+
+/movie/:id
+
+---
+
+# 6. MOVIE DETAILS PAGE
+
+Route:
+
+/movie/:id
+
+Display:
+
+* Full backdrop
+* Poster
+* Title
+* Year
+* Runtime
+* Rating
+* Genres
+* Description
+* Director
+* Cast
+* Production information
+* Watch Now
+* Add to My List
+
+Below:
+
+* Cast carousel
+* Similar movies
+* Recommended movies
+
+Watch Now should open:
+
+/watch/movie/:id
+
+---
+
+# 7. TV SHOW DETAILS
+
+Route:
+
+/tv/:id
+
+Display:
+
+* Backdrop
+* Poster
+* Title
+* Description
+* Rating
+* Genres
+* Cast
+* Number of seasons
+* Number of episodes
+
+Add a season selector.
+
+When a season is selected, display:
+
+* Episode number
+* Episode title
+* Air date
+* Episode description
+* Thumbnail
+* Play button
+
+Clicking an episode opens:
+
+/watch/tv/:id/:season/:episode
+
+---
+
+# 8. RESPONSIVE VIDEO PLAYER
+
+Create:
+
+src/components/VideoPlayer.tsx
+
+The player should be responsive and maintain a 16:9 aspect ratio.
+
+For authorized movie content, dynamically construct:
+
+https://www.vidking.net/embed/movie/{TMDB_ID}?autoPlay=true
+
+For authorized TV content:
+
+https://www.vidking.net/embed/tv/{TMDB_ID}/{SEASON}/{EPISODE}?autoPlay=true&nextEpisode=true&episodeSelector=true
+
+Do not hardcode movie IDs.
+
+Generate the URL dynamically from route parameters.
+
+Player page should contain:
+
+* Responsive iframe
+* Fullscreen support
+* Loading state
+* Error state
+* Back button
+* Movie/show title
+* Episode title where applicable
+* Previous/next episode controls where appropriate
+* Recommended content below player
+
+Do not download, scrape, proxy, or store video files from the external player.
+
+---
+
+# 9. WATCH PROGRESS
+
+Implement watch-progress tracking.
+
+Listen for postMessage events from the embedded player.
+
+Support:
+
+* play
+* pause
+* timeupdate
+* seeked
+* ended
+
+Store:
+
+* TMDB ID
+* media type
+* current playback position
+* duration
+* percentage watched
+* season
+* episode
+* last watched timestamp
+
+Logged-in users should have their progress stored in Supabase.
+
+For guests, temporarily store progress in localStorage.
+
+When reopening content, show:
+
+"Continue Watching"
+
+and resume from the stored position where supported.
+
+---
+
+# 10. AUTHENTICATION
+
+Use Supabase Authentication.
+
+Create:
+
+/login
+/signup
+/forgot-password
+/profile
+
+Support:
+
+* Email/password signup
+* Email/password login
+* Logout
+* Password reset
+* Persistent session
+* Protected routes
+
+After signup:
+
+* Create user profile record
+* Give normal user role by default
+
+Never allow users to select the admin role themselves.
+
+---
+
+# 11. USER PROFILE
+
+Create a profile page.
+
+Display:
+
+* Avatar
+* Display name
+* Email
+* Account creation date
+* My List
+* Watch History
+* Continue Watching
+
+Allow users to update:
+
+* Display name
+* Avatar
+* Password
+
+---
+
+# 12. MY LIST
+
+Create:
+
+/my-list
+
+Users can:
+
+* Add movie
+* Remove movie
+* Add TV show
+* Remove TV show
+
+Store favorites in Supabase.
+
+Show:
+
+* Movie poster
+* Title
+* Rating
+* Remove button
+* Watch button
+
+For logged-out users, use localStorage.
+
+---
+
+# 13. WATCH HISTORY
+
+Create:
+
+/history
+
+Display recently watched content.
+
+Each history record should contain:
+
+* User ID
+* TMDB ID
+* Media type
+* Title
+* Poster
+* Season
+* Episode
+* Progress
+* Last watched time
+
+Allow:
+
+* Continue watching
+* Remove individual history item
+* Clear all history
+
+---
+
+# 14. SEARCH
+
+Create a powerful search page.
+
+Route:
+
+/search?q=query
+
+Search TMDB for:
+
+* Movies
+* TV shows
+* People
+
+Use debounce to prevent excessive API requests.
+
+Display results in a responsive grid.
+
+Add filters:
+
+* All
+* Movies
+* TV
+* People
+
+Add:
+
+* Loading skeleton
+* Empty state
+* Error state
+
+---
+
+# 15. GENRES
+
+Create:
+
+/genres
+
+Display genre cards.
+
+Clicking a genre opens filtered content.
+
+Example:
+
+/movies?genre=28
+
+Support movie and TV genre filtering.
+
+---
+
+# 16. ADMIN PANEL
+
+Create a protected admin dashboard:
+
+/admin
+
+Only users with role="admin" can access it.
+
+Create:
+
+/admin/dashboard
+/admin/users
+/admin/content
+/admin/settings
+
+Dashboard should display:
+
+* Total users
+* Active users
+* Total favorites
+* Total watch-history records
+* Most watched movies
+* Most watched TV shows
+* Recent users
+* Recent activity
+
+---
+
+# 17. ADMIN USER MANAGEMENT
+
+Admin can:
+
+* View users
+* Search users
+* View account information
+* Change display name
+* Disable/enable account
+* Change role between user/admin
+* Delete user
+
+Add confirmation dialogs before destructive actions.
+
+Never allow an admin to accidentally remove their own administrator access.
+
+---
+
+# 18. ADMIN CONTENT MANAGEMENT
+
+Create an admin content-management interface.
+
+Admins can search TMDB and select content to feature on the website.
+
+Allow:
+
+* Add featured movie
+* Remove featured movie
+* Mark content as featured
+* Set homepage ordering
+* Hide/show content
+* Add custom homepage sections
+
+Do not upload or host copyrighted movie files.
+
+The content-management system should manage metadata and authorized embeds only.
+
+---
+
+# 19. DATABASE
+
+Use Supabase PostgreSQL.
+
+Create appropriate tables:
+
+profiles
+
+* id
+* email
+* display_name
+* avatar_url
+* role
+* created_at
+* updated_at
+
+favorites
+
+* id
+* user_id
+* tmdb_id
+* media_type
+* title
+* poster_path
+* created_at
+
+watch_history
+
+* id
+* user_id
+* tmdb_id
+* media_type
+* title
+* poster_path
+* season
+* episode
+* progress_seconds
+* duration_seconds
+* progress_percent
+* last_watched_at
+
+featured_content
+
+* id
+* tmdb_id
+* media_type
+* display_order
+* is_active
+* created_at
+
+homepage_sections
+
+* id
+* title
+* section_type
+* display_order
+* is_active
+
+Add foreign keys and indexes where appropriate.
+
+---
+
+# 20. SECURITY
+
+Implement Supabase Row Level Security.
+
+Users should only be able to:
+
+* Read/update their own profile
+* Read/write their own favorites
+* Read/write their own watch history
+
+Only admins should be able to manage:
+
+* Users
+* Featured content
+* Homepage configuration
+* Administrative settings
+
+Do not trust frontend role checks alone.
+
+Enforce authorization through database policies/server-side logic.
+
+Never expose:
+
+* Supabase service-role keys
+* TMDB private credentials
+* Admin secrets
+
+---
+
+# 21. ERROR HANDLING
+
+Create polished error states for:
+
+* TMDB API unavailable
+* Invalid movie ID
+* Invalid TV ID
+* Player unavailable
+* Authentication failure
+* Database failure
+* Search failure
+* Network failure
+
+Use friendly messages rather than raw errors.
+
+---
+
+# 22. LOADING STATES
+
+Create skeleton loaders for:
+
+* Hero
+* Movie cards
+* Movie details
+* TV details
+* Search results
+* Profile
+* Admin dashboard
+
+Avoid blank screens while loading.
+
+---
+
+# 23. EMPTY STATES
+
+Create attractive empty states for:
+
+* No search results
+* Empty My List
+* Empty watch history
+* No recommendations
+* No episodes
+* No admin content
+
+---
+
+# 24. RESPONSIVE DESIGN
+
+The entire application must work correctly on:
+
+* Mobile phones
+* Tablets
+* Laptops
+* Desktop monitors
+* Large screens
+
+Movie grids should automatically adapt to screen width.
+
+The video player must remain responsive.
+
+Admin dashboard should also work on mobile.
+
+---
+
+# 25. ROUTES
+
+Implement:
+
+/
+/movies
+/tv-shows
+/genres
+/search
+/movie/:id
+/tv/:id
+/watch/movie/:id
+/watch/tv/:id/:season/:episode
+/my-list
+/history
+/profile
+/login
+/signup
+/forgot-password
+/admin
+/admin/dashboard
+/admin/users
+/admin/content
+/admin/settings
+
+---
+
+# 26. COMPONENT ARCHITECTURE
+
+Create reusable components:
+
+Navbar
+MobileNavbar
+HeroBanner
+MovieCard
+TVCard
+MediaGrid
+MediaCarousel
+SearchBar
+VideoPlayer
+EpisodeList
+SeasonSelector
+CastCarousel
+RatingBadge
+GenreBadge
+WatchProgressBar
+ContinueWatching
+RecommendationSection
+ProtectedRoute
+AdminRoute
+LoadingSkeleton
+EmptyState
+ErrorState
+Footer
+
+Keep components small and reusable.
+
+---
+
+# 27. PERFORMANCE
+
+Implement:
+
+* Lazy-loaded routes
+* Lazy-loaded images
+* Image optimization
+* Debounced search
+* API caching where appropriate
+* Avoid unnecessary re-renders
+* Pagination/infinite scrolling where useful
+
+Do not make hundreds of TMDB requests simultaneously.
+
+Respect TMDB API rate limits.
+
+---
+
+# 28. SEO
+
+Add:
+
+* Dynamic page titles
+* Meta descriptions
+* Open Graph metadata
+* Proper headings
+* Semantic HTML
+* Friendly URLs
+
+Example:
+
+Movie page:
+
+"Movie Title — Watch Details"
+
+TV page:
+
+"Show Title — TV Series"
+
+---
+
+# 29. ACCESSIBILITY
+
+Support:
+
+* Keyboard navigation
+* Visible focus states
+* Alt text
+* Proper ARIA labels
+* Sufficient contrast
+* Screen-reader-friendly buttons
+* Accessible dialogs
+
+---
+
+# 30. ABOUT / CREDITS
+
+Create an About/Credits page.
+
+Include TMDB attribution:
+
+"This product uses the TMDB API but is not endorsed or certified by TMDB."
+
+Clearly separate the site's own branding from TMDB branding.
+
+---
+
+# 31. ENVIRONMENT VARIABLES
+
+Create an example environment file with placeholders such as:
+
+VITE_TMDB_API_KEY=
+VITE_SUPABASE_URL=
+VITE_SUPABASE_ANON_KEY=
+
+Do not insert fake production credentials.
+
+Create clear setup instructions explaining where each credential comes from.
+
+---
+
+# 32. FINAL QUALITY REQUIREMENTS
+
+Before considering the project complete:
+
+1. Verify every route works.
+2. Verify login/signup works.
+3. Verify protected routes work.
+4. Verify admin authorization works.
+5. Verify TMDB API integration.
+6. Verify search.
+7. Verify movie details.
+8. Verify TV seasons and episodes.
+9. Verify favorites.
+10. Verify watch history.
+11. Verify watch-progress persistence.
+12. Verify responsive player.
+13. Verify mobile navigation.
+14. Verify loading states.
+15. Verify error states.
+16. Verify database RLS policies.
+17. Verify no secret keys are exposed.
+18. Verify there are no broken links.
+19. Remove placeholder content where real TMDB data is available.
+20. Make the final UI polished and production-ready.
+
+Do not stop after generating the homepage.
+
+Build the complete application architecture, database schema, authentication flow, admin dashboard, API integration, responsive player, and all required pages/components.
+
+If a credential is required, create the correct environment-variable placeholder and explain exactly what needs to be configured instead of inventing credentials.
