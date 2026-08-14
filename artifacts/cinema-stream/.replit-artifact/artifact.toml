@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Cinema Stream"
+description = "A cinematic streaming discovery platform for browsing movies and TV shows, searching metadata, saving a personal list, tracking watch progress, and watching authorized embedded content."
+version = "1.0.0"
+id = "artifacts/cinema-stream"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18091
+
+[services.development]
+run = "pnpm --filter @workspace/cinema-stream run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/cinema-stream", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/cinema-stream/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18091"
+BASE_PATH = "/"
