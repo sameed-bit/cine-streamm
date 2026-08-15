@@ -931,7 +931,7 @@ function MediaCard({
           href={href}
           className="absolute inset-x-0 bottom-0 z-[2] bg-gradient-to-t from-black via-black/70 to-transparent px-2 sm:px-3.5 pb-2.5 sm:pb-4 pt-10 sm:pt-16 text-white opacity-100 sm:opacity-0 transition-all duration-500 sm:group-hover:opacity-100"
         >
-          <span className="text-[11px] sm:text-[11px] font-semibold leading-tight line-clamp-2">
+          <span className="text-[11px] sm:text-[13px] font-semibold leading-tight line-clamp-2">
             {item.title}
           </span>
         </Link>
@@ -953,21 +953,21 @@ function MediaCard({
         )}
       </div>
 
-      <div className="flex items-start justify-between gap-1 pt-1 sm:pt-1.5">
+      <div className="flex items-start justify-between gap-1.5 sm:gap-2 pt-2 sm:pt-3.5">
         <Link
           href={href}
-          className="line-clamp-1 text-[11px] sm:text-xs font-medium text-foreground transition hover:text-primary"
+          className="line-clamp-1 text-[13px] sm:text-[15px] font-semibold text-foreground transition-all duration-300 hover:translate-x-1 hover:text-primary"
         >
           {item.title}
         </Link>
 
-        <span className="shrink-0 font-mono text-[10px] text-muted-foreground">
+        <span className="shrink-0 font-mono text-[11px] text-muted-foreground">
           {year(item.release_date)}
         </span>
       </div>
 
       <motion.div
-        className="mt-0.5 flex items-center gap-1 font-mono text-[10px] text-red-500"
+        className="mt-1.5 flex items-center gap-1.5 font-mono text-[12px] text-red-500"
         whileHover={{ x: 3 }}
       >
         <Star className="h-3.5 w-3.5 fill-red-500 text-red-500" />
@@ -1000,17 +1000,17 @@ function Rail({
     <section className="space-y-5">
       <div className="flex items-end justify-between border-b border-white/10 pb-3">
         <div>
-          <p className="font-mono text-[9px] font-medium uppercase tracking-[0.12em] text-primary">
+          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">
             {eyebrow || 'Curated for tonight'}
           </p>
-          <h2 className="mt-0.5 text-sm font-semibold tracking-tight text-foreground sm:text-base">
+          <h2 className="mt-1 text-xl font-bold tracking-tight text-foreground sm:text-2xl md:text-3xl">
             {title}
           </h2>
         </div>
         {href && (
           <Link
             href={href}
-            className="flex items-center gap-1 text-[11px] font-medium text-muted-foreground transition hover:text-foreground"
+            className="flex items-center gap-2 text-sm font-bold uppercase tracking-[0.12em] text-muted-foreground transition hover:text-foreground"
           >
             See all
             <ArrowRight className="h-4 w-4" />
@@ -1019,7 +1019,7 @@ function Rail({
       </div>
 
       {cleanItems.length ? (
-        <div className="stagger-grid grid grid-cols-2 min-[400px]:grid-cols-3 gap-x-2 gap-y-4 sm:grid-cols-4 sm:gap-y-6 lg:grid-cols-6">
+        <div className="stagger-grid grid grid-cols-2 min-[400px]:grid-cols-3 gap-x-2.5 gap-y-5 sm:grid-cols-4 sm:gap-y-6 lg:grid-cols-6">
           {cleanItems.map(item => (
             <MediaCard
               key={mediaKey(item)}
@@ -1047,7 +1047,7 @@ function AuthNavActions() {
  
   if (loading) {
     return (
-      <div className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-xl bg-white/5">
+      <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-2xl bg-white/5">
         <span className="h-4 w-4 animate-pulse rounded-full bg-white/20" />
       </div>
     );
@@ -1062,12 +1062,12 @@ function AuthNavActions() {
       <Link
         href="/profile"
         aria-label="Profile"
-        className="flex h-8 sm:h-9 items-center gap-1.5 rounded-xl border-0 bg-white/10 px-2 sm:px-3 text-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] backdrop-blur-md transition hover:bg-white/16"
+        className="flex h-10 sm:h-12 items-center gap-2 rounded-2xl border-0 bg-white/10 px-2.5 sm:px-3 text-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] backdrop-blur-md transition hover:bg-white/16"
       >
-        <span className="flex h-6 w-6 sm:h-7 sm:w-7 items-center justify-center rounded-full bg-primary/20 text-xs font-bold text-primary">
+        <span className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-primary/20 text-sm font-bold text-primary">
           {initial}
         </span>
-        <span className="hidden max-w-[100px] truncate text-[11px] font-semibold sm:inline">
+        <span className="hidden max-w-[100px] truncate text-[13px] font-semibold sm:inline">
           {(user.user_metadata?.full_name as string) || user.email}
         </span>
       </Link>
@@ -1078,13 +1078,13 @@ function AuthNavActions() {
     <>
       <Link
         href="/sign-in"
-        className="flex h-8 sm:h-9 items-center rounded-xl border-0 bg-white/10 px-2.5 sm:px-3.5 text-[12px] sm:text-[11px] font-semibold text-foreground backdrop-blur-md transition hover:bg-white/16"
+        className="flex h-10 sm:h-12 items-center rounded-2xl border-0 bg-white/10 px-2.5 sm:px-4 text-[12px] sm:text-[13px] font-semibold text-foreground backdrop-blur-md transition hover:bg-white/16"
       >
         Sign in
       </Link>
       <Link
         href="/sign-up"
-        className="hidden sm:flex h-8 sm:h-9 items-center rounded-xl bg-primary px-2.5 sm:px-3.5 text-[12px] sm:text-[11px] font-semibold text-primary-foreground transition hover:brightness-110"
+        className="hidden sm:flex h-10 sm:h-12 items-center rounded-2xl bg-primary px-2.5 sm:px-4 text-[12px] sm:text-[13px] font-semibold text-primary-foreground transition hover:brightness-110"
       >
         Sign up
       </Link>
@@ -1129,14 +1129,14 @@ function Shell({ children }: { children: ReactNode }) {
           boxShadow: '0 8px 28px rgba(0,0,0,0.18)',
         }}
       >
-        <div className="mx-auto flex h-11 sm:h-12 md:h-14 lg:h-16 max-w-[1480px] items-center gap-2 px-3 sm:gap-3 sm:px-5 lg:gap-5 lg:px-10">
+        <div className="mx-auto flex h-14 sm:h-16 md:h-[72px] lg:h-[80px] max-w-[1480px] items-center gap-2 px-3 sm:gap-4 sm:px-5 lg:gap-6 lg:px-10">
           <Link href="/" className="flex min-w-0 shrink-0 items-center gap-2 group">
             <span className="shrink-0 transition group-hover:scale-105 group-hover:brightness-110">
-              <BrandLogo size={22} className="sm:hidden" />
-              <BrandLogo size={30} className="hidden sm:block lg:hidden" />
-              <BrandLogo size={36} className="hidden lg:block" />
+              <BrandLogo size={32} className="sm:hidden" />
+              <BrandLogo size={48} className="hidden sm:block lg:hidden" />
+              <BrandLogo size={56} className="hidden lg:block" />
             </span>
-            <span className="text-[11px] sm:text-sm font-semibold tracking-tight text-foreground">
+            <span className="hidden xs:inline text-base sm:text-lg font-semibold tracking-tight text-foreground min-[380px]:inline">
               Cine <span className="text-primary">Stream</span>
             </span>
           </Link>
@@ -1148,8 +1148,8 @@ function Shell({ children }: { children: ReactNode }) {
                 href={href}
                 className={
                   location === href
-                    ? 'flex items-center gap-2 rounded-2xl px-3.5 py-2.5 text-xs font-semibold tracking-tight bg-white/18 text-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]'
-                    : 'flex items-center gap-2 rounded-2xl px-3.5 py-2.5 text-xs font-semibold tracking-tight text-white/70 transition-all duration-200 hover:bg-white/10 hover:text-foreground'
+                    ? 'flex items-center gap-2 rounded-2xl px-3.5 py-2.5 text-[14px] font-semibold tracking-tight bg-white/18 text-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]'
+                    : 'flex items-center gap-2 rounded-2xl px-3.5 py-2.5 text-[14px] font-semibold tracking-tight text-white/70 transition-all duration-200 hover:bg-white/10 hover:text-foreground'
                 }
               >
                 <Icon className={location === href ? 'h-[17px] w-[17px] text-primary' : 'h-[17px] w-[17px]'} />
@@ -1162,10 +1162,10 @@ function Shell({ children }: { children: ReactNode }) {
             <Link
               href="/search"
               aria-label="Search"
-              className="flex h-8 w-8 sm:h-9 sm:w-auto shrink-0 items-center justify-center gap-2 rounded-xl border-0 bg-white/10 px-0 sm:px-4 text-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur-md transition hover:bg-white/16 sm:min-w-[140px]"
+              className="flex h-10 w-10 sm:h-11 sm:w-auto shrink-0 items-center justify-center gap-2 rounded-xl sm:rounded-2xl border-0 bg-white/10 px-0 sm:px-4 text-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur-md transition hover:bg-white/16 sm:min-w-[160px]"
             >
               <Search className="h-4.5 w-4.5 sm:h-5 sm:w-5 shrink-0 stroke-[2.5]" />
-              <span className="hidden text-xs font-semibold tracking-tight sm:inline">
+              <span className="hidden text-[15px] font-semibold tracking-tight sm:inline">
                 Search
               </span>
             </Link>
@@ -1191,7 +1191,7 @@ function Shell({ children }: { children: ReactNode }) {
       </header>
  
       <main
-        className={`animate-fade-in mx-auto max-w-[1480px] px-3 sm:px-5 lg:px-10 ${!['/search', '/sign-in', '/sign-up'].includes(location) ? 'pt-12 sm:pt-14 lg:pt-16 pb-16 lg:pb-12' : 'pt-12 sm:pt-14 lg:pt-16 pb-12'}`}
+        className={`animate-fade-in mx-auto max-w-[1480px] px-3 sm:px-5 lg:px-10 ${!['/search', '/sign-in', '/sign-up'].includes(location) ? 'pt-16 sm:pt-20 lg:pt-24 pb-24 lg:pb-16' : 'pt-16 sm:pt-20 lg:pt-24 pb-16'}`}
         key={location}
       >
         {children}
@@ -1210,7 +1210,7 @@ function Shell({ children }: { children: ReactNode }) {
           }}
           aria-label="Primary"
         >
-          <div className="mx-auto flex h-11 max-w-[1480px] items-stretch justify-around px-1">
+          <div className="mx-auto flex h-14 max-w-[1480px] items-stretch justify-around px-1">
             {[
               { href: '/', label: 'Home', icon: Clapperboard },
               { href: '/movies', label: 'Movies', icon: Film },
@@ -1229,8 +1229,8 @@ function Shell({ children }: { children: ReactNode }) {
                       : 'flex min-w-0 flex-1 flex-col items-center justify-center gap-0.5 text-white/50 transition active:text-white/80'
                   }
                 >
-                  <Icon className={active ? 'h-4 w-4' : 'h-3.5 w-3.5'} strokeWidth={active ? 2.25 : 2} />
-                  <span className="truncate text-[8px] font-semibold tracking-wide">{label}</span>
+                  <Icon className={active ? 'h-[22px] w-[22px]' : 'h-5 w-5'} strokeWidth={active ? 2.4 : 2} />
+                  <span className="truncate text-[10px] font-semibold tracking-wide">{label}</span>
                 </Link>
               );
             })}
@@ -1243,17 +1243,17 @@ function Shell({ children }: { children: ReactNode }) {
           {/* Brand row */}
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-2.5">
-              <BrandLogo size={22} />
+              <BrandLogo size={28} />
               <div>
-                <p className="text-sm font-semibold tracking-tight text-foreground">
+                <p className="text-[15px] font-semibold tracking-tight text-foreground">
                   Cine Stream
                 </p>
-                <p className="text-[11px] text-white/40">
+                <p className="text-[12px] text-white/40">
                   A quiet place for a great watch.
                 </p>
               </div>
             </div>
-            <p className="text-[11px] text-white/35">
+            <p className="text-[12px] text-white/35">
               This product uses the TMDB API but is not endorsed or certified by
               TMDB.
             </p>
@@ -1262,10 +1262,10 @@ function Shell({ children }: { children: ReactNode }) {
           {/* Link columns */}
           <div className="mt-6 grid grid-cols-2 gap-6 sm:mt-8 sm:grid-cols-3 sm:max-w-lg sm:gap-8">
             <div>
-              <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.1em] text-white/50">
+              <p className="mb-3 text-[12px] font-semibold uppercase tracking-[0.12em] text-white/50">
                 Browse
               </p>
-              <ul className="space-y-1.5 text-xs text-white/60">
+              <ul className="space-y-2 text-[13px] text-white/60">
                 <li>
                   <Link href="/movies" className="transition hover:text-foreground">
                     Movies
@@ -1290,10 +1290,10 @@ function Shell({ children }: { children: ReactNode }) {
             </div>
  
             <div>
-              <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.1em] text-white/50">
+              <p className="mb-3 text-[12px] font-semibold uppercase tracking-[0.12em] text-white/50">
                 Your library
               </p>
-              <ul className="space-y-1.5 text-xs text-white/60">
+              <ul className="space-y-2 text-[13px] text-white/60">
                 <li>
                   <Link href="/my-list" className="transition hover:text-foreground">
                     My List
@@ -1318,10 +1318,10 @@ function Shell({ children }: { children: ReactNode }) {
             </div>
 
             <div>
-              <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.1em] text-white/50">
+              <p className="mb-3 text-[12px] font-semibold uppercase tracking-[0.12em] text-white/50">
                 Support
               </p>
-              <ul className="space-y-1.5 text-xs text-white/60">
+              <ul className="space-y-2 text-[13px] text-white/60">
                 <li>
                   <a href="mailto:sameedb08@gmail.com" className="transition hover:text-foreground">
                     Contact us
@@ -1342,7 +1342,7 @@ function Shell({ children }: { children: ReactNode }) {
           </div>
  
           {/* Bottom bar */}
-          <div className="mt-10 flex flex-col gap-2 border-t border-white/8 pt-5 text-[11px] text-white/35 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-10 flex flex-col gap-2 border-t border-white/8 pt-5 text-[12px] text-white/35 sm:flex-row sm:items-center sm:justify-between">
             <p>© {new Date().getFullYear()} Cine Stream. All rights reserved.</p>
             <p className="text-white/30">
               Built for discovery · Guest-first by default
@@ -1369,7 +1369,7 @@ function PageIntro({
   return (
     <div className="max-w-2xl">
       <p
-        className="hidden sm:block text-[11px] font-semibold tracking-[-0.01em] sm:text-xs"
+        className="hidden sm:block text-[13px] font-semibold tracking-[-0.01em] sm:text-[14px]"
         style={{
           color: 'hsl(353 78% 62%)',
           letterSpacing: '0.01em',
@@ -1378,11 +1378,11 @@ function PageIntro({
         {kicker}
       </p>
 
-      <h1 className="mt-1.5 text-lg font-semibold leading-snug tracking-tight text-foreground sm:text-xl">
+      <h1 className="mt-2 text-[1.65rem] font-semibold leading-[1.15] tracking-[-0.025em] text-foreground sm:text-[2.15rem] md:text-[2.5rem] lg:text-[2.75rem]">
         {title}
       </h1>
 
-      <p className="mt-1.5 text-xs font-normal leading-relaxed text-muted-foreground sm:text-sm">
+      <p className="mt-3 text-[15px] font-normal leading-[1.55] text-muted-foreground sm:mt-4 sm:text-base md:text-[17px]">
         {copy}
       </p>
     </div>
@@ -1526,7 +1526,7 @@ function Home() {
   }, [tvItems.length, topTv.isFetching, topTv.data?.total_pages, tvPage]);
 
   return (
-    <div className="space-y-6 sm:space-y-8">
+    <div className="space-y-10 sm:space-y-14">
       {showHeroTrailer && heroTrailer && hero && (
         <TrailerModal
           videoKey={heroTrailer.key}
@@ -1537,7 +1537,7 @@ function Home() {
 
       {/* HERO – brighter image + soft ambient background */}
       <section
-        className="relative -mx-3 sm:-mx-5 min-h-[260px] sm:min-h-[320px] md:min-h-[380px] lg:min-h-[420px] overflow-hidden border-b border-white/10 lg:-mx-10"
+        className="relative -mx-3 sm:-mx-5 min-h-[380px] sm:min-h-[480px] md:min-h-[560px] lg:min-h-[620px] overflow-hidden border-b border-white/10 lg:-mx-10"
         style={{
           fontFamily:
             '-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif',
@@ -1559,22 +1559,22 @@ function Home() {
         <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-transparent" />
 
-        <div className="relative flex min-h-[260px] sm:min-h-[320px] md:min-h-[380px] lg:min-h-[420px] max-w-2xl flex-col justify-end px-4 pb-8 sm:px-5 sm:pb-12 lg:px-10 lg:pb-16">
-          <h1 className="max-w-xl text-xl font-semibold leading-tight tracking-tight text-white drop-shadow-md sm:text-xl md:text-2xl">
+        <div className="relative flex min-h-[380px] sm:min-h-[480px] md:min-h-[560px] lg:min-h-[620px] max-w-2xl flex-col justify-end px-4 pb-10 sm:px-5 sm:pb-14 lg:px-10 lg:pb-20">
+          <h1 className="max-w-xl text-[1.75rem] font-semibold leading-[1.1] tracking-[-0.02em] text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.35)] sm:text-[2.5rem] md:text-[3.1rem] lg:text-[3.75rem]">
             {hero?.title || 'Something worth staying up for.'}
           </h1>
-          <p className="mt-1.5 sm:mt-2 max-w-lg text-xs font-normal leading-relaxed text-white/75 sm:text-sm line-clamp-2 sm:line-clamp-3">
+          <p className="mt-3 sm:mt-5 max-w-lg text-[14px] sm:text-[16px] font-normal leading-[1.55] text-white/85 md:text-[17.5px] line-clamp-3 sm:line-clamp-none">
             {hero?.overview ||
               'A handpicked stream of films and series for the hours when everything else goes quiet.'}
           </p>
-          <div className="mt-5 flex flex-wrap items-center gap-2">
+          <div className="mt-8 flex flex-wrap gap-3">
             <Link
               href={
                 hero
                   ? `/${hero.media_type === 'movie' ? 'movie' : 'tv'}/${hero.id}`
                   : '/movies'
               }
-              className="inline-flex h-8 items-center gap-1.5 rounded-md bg-primary px-3 text-[11px] font-semibold text-primary-foreground shadow-sm shadow-primary/20 transition hover:brightness-110 sm:px-3.5 sm:text-xs"
+              className="flex items-center gap-2 rounded-xl sm:rounded-2xl bg-primary px-4 py-2.5 sm:px-6 sm:py-3.5 text-[12px] sm:text-[13px] font-semibold tracking-wide text-primary-foreground shadow-lg shadow-primary/30 transition hover:brightness-110 min-h-11"
             >
               <Play className="h-4.5 w-4.5 fill-current" />
               Explore title
@@ -1584,7 +1584,7 @@ function Home() {
                 type="button"
                 onClick={() => setShowHeroTrailer(true)}
                 data-testid="button-hero-trailer"
-                className="inline-flex h-8 items-center gap-1.5 rounded-md border border-white/20 bg-white/10 px-3 text-[11px] font-semibold text-white backdrop-blur-md transition hover:bg-white/15 sm:px-3.5 sm:text-xs"
+                className="flex items-center gap-2 rounded-xl sm:rounded-2xl border border-white/25 bg-white/10 px-4 py-2.5 sm:px-6 sm:py-3.5 text-[12px] sm:text-[13px] font-semibold tracking-wide text-white backdrop-blur-md transition hover:bg-white/18 min-h-11"
               >
                 <Clapperboard className="h-4.5 w-4.5" />
                 Trailer
@@ -1592,7 +1592,7 @@ function Home() {
             )}
             <Link
               href="/my-list"
-              className="inline-flex h-8 items-center gap-1.5 rounded-md border border-white/20 bg-white/10 px-3 text-[11px] font-semibold text-white backdrop-blur-md transition hover:bg-white/15 sm:px-3.5 sm:text-xs"
+              className="flex items-center gap-2 rounded-xl sm:rounded-2xl border border-white/25 bg-white/10 px-4 py-2.5 sm:px-6 sm:py-3.5 text-[12px] sm:text-[13px] font-semibold tracking-wide text-white backdrop-blur-md transition hover:bg-white/18 min-h-11"
             >
               <Bookmark className="h-4.5 w-4.5" />
               My List
@@ -1740,7 +1740,7 @@ function GlassDropdown({
         onClick={() => setOpen(v => !v)}
         aria-label={label}
         aria-expanded={open}
-        className={`flex ${heightClass} w-full items-center justify-between gap-2 rounded-2xl border border-white/20 px-3.5 text-[11px] font-semibold tracking-tight text-white transition hover:border-white/35 sm:px-4`}
+        className={`flex ${heightClass} w-full items-center justify-between gap-2 rounded-2xl border border-white/20 px-3.5 text-[13px] font-semibold tracking-tight text-white transition hover:border-white/35 sm:px-4`}
         style={{
           background: 'rgba(255,255,255,0.12)',
           backdropFilter: 'blur(20px) saturate(180%)',
@@ -1775,7 +1775,7 @@ function GlassDropdown({
                 onChange(opt.value);
                 setOpen(false);
               }}
-              className={`flex w-full px-4 py-2.5 text-left text-[11px] font-semibold transition ${
+              className={`flex w-full px-4 py-2.5 text-left text-[13px] font-semibold transition ${
                 value === opt.value
                   ? 'bg-primary/25 text-white'
                   : 'text-white/85 hover:bg-white/10 hover:text-white'
@@ -1909,7 +1909,7 @@ function Browse({ type }: { type: 'movie' | 'tv' }) {
   } else {
     content = (
       <>
-        <div className="stagger-grid grid grid-cols-2 min-[400px]:grid-cols-3 gap-x-2 gap-y-4 sm:grid-cols-4 sm:gap-y-7 lg:grid-cols-6">
+        <div className="stagger-grid grid grid-cols-2 min-[400px]:grid-cols-3 gap-x-2.5 gap-y-5 sm:grid-cols-4 sm:gap-y-7 lg:grid-cols-6">
           {displayItems.map(item => (
             <MediaCard
               key={mediaKey(item)}
@@ -1968,7 +1968,7 @@ function Browse({ type }: { type: 'movie' | 'tv' }) {
             key={key}
             data-testid={`button-category-${key}`}
             onClick={() => setCategory(key as Category)}
-            className={`rounded-2xl border px-3 py-1.5 text-[11px] font-semibold tracking-tight transition backdrop-blur-md ${
+            className={`rounded-2xl border px-5 py-2.5 text-[13px] font-semibold tracking-tight transition backdrop-blur-md ${
               category === key
                 ? 'border-primary/60 bg-primary text-primary-foreground shadow-lg shadow-primary/25'
                 : 'border-white/20 bg-white/10 text-white/80 hover:border-white/35 hover:bg-white/16 hover:text-foreground'
@@ -2145,7 +2145,7 @@ function AnimePage() {
           <button
             key={key}
             onClick={() => setMediaType(key)}
-            className={`rounded-2xl border px-3 py-1.5 text-[11px] font-semibold tracking-tight transition backdrop-blur-md ${
+            className={`rounded-2xl border px-5 py-2.5 text-[13px] font-semibold tracking-tight transition backdrop-blur-md ${
               mediaType === key
                 ? 'border-primary/60 bg-primary text-primary-foreground shadow-lg shadow-primary/25'
                 : 'border-white/20 bg-white/10 text-white/80 hover:border-white/35 hover:bg-white/16 hover:text-foreground'
@@ -2197,7 +2197,7 @@ function AnimePage() {
         <QueryMessage error retry={() => result.refetch()} />
       ) : (
         <>
-          <div className="stagger-grid grid grid-cols-2 min-[400px]:grid-cols-3 gap-x-2 gap-y-4 sm:grid-cols-4 sm:gap-y-7 lg:grid-cols-6">
+          <div className="stagger-grid grid grid-cols-2 min-[400px]:grid-cols-3 gap-x-2.5 gap-y-5 sm:grid-cols-4 sm:gap-y-7 lg:grid-cols-6">
             {allItems.map(item => (
               <MediaCard
                 key={mediaKey(item)}
@@ -2285,10 +2285,10 @@ function HistoryPage() {
       ) : (
         <div className="rounded-2xl border border-dashed border-white/15 bg-card/40 p-10 sm:p-16">
           <History className="h-7 w-7 text-primary" />
-          <h2 className="mt-3 text-base font-semibold tracking-tight">
+          <h2 className="mt-5 text-3xl font-bold tracking-tight">
             Your story has not started yet.
           </h2>
-          <p className="mt-3 max-w-md text-sm leading-7 text-muted-foreground">
+          <p className="mt-3 max-w-md text-[16px] leading-7 text-muted-foreground">
             Start watching from any title page and your local history will
             appear here.
           </p>
@@ -2454,7 +2454,7 @@ function Genres() {
         <div className="flex w-full flex-wrap gap-1.5">
           <button
             onClick={() => setSelected(null)}
-            className={`rounded-full border px-2.5 py-1 text-[11px] font-semibold tracking-tight transition-all ${
+            className={`rounded-full border px-3 py-1.5 text-[12px] font-semibold tracking-tight transition-all ${
               !selected
                 ? 'border-primary bg-primary text-primary-foreground'
                 : 'border-white/15 bg-white/8 text-white/75 hover:border-primary/50 hover:text-foreground'
@@ -2477,7 +2477,7 @@ function Genres() {
                       },
                 )
               }
-              className={`rounded-full border px-2.5 py-1 text-[11px] font-semibold tracking-tight transition-all ${
+              className={`rounded-full border px-3 py-1.5 text-[12px] font-semibold tracking-tight transition-all ${
                 selected?.id === genre.id
                   ? 'border-primary bg-primary text-primary-foreground'
                   : 'border-white/15 bg-white/8 text-white/75 hover:border-primary/50 hover:text-foreground'
@@ -2577,7 +2577,7 @@ function Genres() {
           <QueryMessage error retry={() => activeQuery.refetch()} />
         ) : (
           <>
-            <div className="stagger-grid grid grid-cols-2 min-[400px]:grid-cols-3 gap-x-2 gap-y-4 sm:grid-cols-4 sm:gap-y-6 lg:grid-cols-6">
+            <div className="stagger-grid grid grid-cols-2 min-[400px]:grid-cols-3 gap-x-2.5 gap-y-5 sm:grid-cols-4 sm:gap-y-6 lg:grid-cols-6">
               {allItems.map(item => (
                 <MediaCard
                   key={mediaKey(item)}
@@ -2807,7 +2807,7 @@ function SearchPage() {
             value={input}
             onChange={e => setInput(e.target.value)}
             placeholder="Try “quiet sci-fi” or a name"
-            className="h-14 w-full rounded-xl border border-white/15 bg-card pl-12 pr-4 text-sm font-medium text-foreground placeholder:text-muted-foreground transition focus:border-primary focus:outline-none"
+            className="h-14 w-full rounded-xl border border-white/15 bg-card pl-12 pr-4 text-[16px] font-medium text-foreground placeholder:text-muted-foreground transition focus:border-primary focus:outline-none"
           />
         </div>
 
@@ -2927,7 +2927,7 @@ function SearchPage() {
       {!query && !hasDiscoverFilters ? (
         <section className="space-y-5">
           <div className="flex items-center gap-3">
-            <h2 className="text-sm font-semibold tracking-tight">Trending Now</h2>
+            <h2 className="text-2xl font-bold tracking-tight">Trending Now</h2>
             <span className="font-mono text-[12px] text-muted-foreground">
               {displayItems.length} titles
             </span>
@@ -2937,7 +2937,7 @@ function SearchPage() {
             <LoadingRail />
           ) : (
             <>
-              <div className="stagger-grid grid grid-cols-2 min-[400px]:grid-cols-3 gap-x-2 gap-y-4 sm:grid-cols-4 sm:gap-y-6 lg:grid-cols-6">
+              <div className="stagger-grid grid grid-cols-2 min-[400px]:grid-cols-3 gap-x-2.5 gap-y-5 sm:grid-cols-4 sm:gap-y-6 lg:grid-cols-6">
                 {displayItems.map(item => (
                   <MediaCard
                     key={mediaKey(item)}
@@ -2966,7 +2966,7 @@ function SearchPage() {
         <div className="space-y-10">
           <section>
             <div className="mb-5 flex items-center gap-3">
-              <h2 className="text-sm font-semibold tracking-tight">
+              <h2 className="text-2xl font-bold tracking-tight">
                 {hasDiscoverFilters
                   ? [
                       genreFilter?.name,
@@ -2985,7 +2985,7 @@ function SearchPage() {
 
             {displayItems.length ? (
               <>
-                <div className="stagger-grid grid grid-cols-2 min-[400px]:grid-cols-3 gap-x-2 gap-y-4 sm:grid-cols-4 sm:gap-y-6 lg:grid-cols-6">
+                <div className="stagger-grid grid grid-cols-2 min-[400px]:grid-cols-3 gap-x-2.5 gap-y-5 sm:grid-cols-4 sm:gap-y-6 lg:grid-cols-6">
                   {displayItems.map(item => (
                     <MediaCard
                       key={mediaKey(item)}
@@ -3018,7 +3018,7 @@ function SearchPage() {
 
           {!hasDiscoverFilters && people.length > 0 && (
             <section>
-              <h2 className="mb-3 text-sm font-semibold tracking-tight">People</h2>
+              <h2 className="mb-5 text-2xl font-bold tracking-tight">People</h2>
               <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-5">
                 {people.map((person: any) => (
                   <div
@@ -3039,7 +3039,7 @@ function SearchPage() {
                       )}
                     </div>
                     <div>
-                      <p className="text-xs font-semibold">{person.name}</p>
+                      <p className="text-[15px] font-semibold">{person.name}</p>
                       <p className="mt-1 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
                         {person.known_for_department}
                       </p>
@@ -3109,7 +3109,7 @@ function Detail({ type }: { type: 'movie' | 'tv' }) {
       )}
 
       <div className="relative -mx-3 sm:-mx-5 overflow-hidden lg:-mx-10">
-      <div className="relative min-h-[280px] sm:min-h-[340px] md:min-h-[400px] border-b border-white/10">
+      <div className="relative min-h-[400px] sm:min-h-[520px] md:min-h-[600px] lg:min-h-[640px] border-b border-white/10">
         <div className="absolute inset-0">
           {detail.backdrop_path ? (
             <img
@@ -3122,7 +3122,7 @@ function Detail({ type }: { type: 'movie' | 'tv' }) {
           <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/10" />
         </div>
 
-        <div className="relative flex min-h-[280px] sm:min-h-[340px] md:min-h-[400px] items-end px-4 pb-8 sm:px-5 sm:pb-12 lg:px-10 lg:pb-14">
+        <div className="relative flex min-h-[400px] sm:min-h-[520px] md:min-h-[600px] lg:min-h-[640px] items-end px-4 pb-10 sm:px-5 sm:pb-14 lg:px-10 lg:pb-20">
           <div className="grid w-full max-w-5xl gap-8 sm:grid-cols-[200px_1fr] sm:items-end">
             <Poster
               item={item}
@@ -3141,7 +3141,7 @@ function Detail({ type }: { type: 'movie' | 'tv' }) {
                 {type === 'movie' ? 'Feature film' : 'Original series'} /{' '}
                 {year(detail.release_date)}
               </p>
-              <h1 className="mt-1 text-xl font-semibold leading-tight tracking-tight sm:text-xl md:text-2xl">
+              <h1 className="mt-2 sm:mt-3 text-[1.75rem] font-bold leading-[1.1] tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">
                 {detail.title}
               </h1>
               <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
@@ -3154,13 +3154,13 @@ function Detail({ type }: { type: 'movie' | 'tv' }) {
                   {detail.genres?.map(g => g.name).join(' · ')}
                 </span>
               </div>
-              <p className="mt-2 max-w-xl text-xs sm:text-sm leading-relaxed text-muted-foreground line-clamp-3 sm:line-clamp-none">
+              <p className="mt-4 sm:mt-6 max-w-xl text-[14.5px] sm:text-[16px] leading-relaxed text-muted-foreground line-clamp-5 sm:line-clamp-none">
                 {detail.overview || 'A story waiting to be discovered.'}
               </p>
-              <div className="mt-5 flex flex-wrap items-center gap-2">
+              <div className="mt-8 flex flex-wrap gap-3">
                 <PlayOrAuthLink
                   href={href}
-                  className="inline-flex h-8 items-center gap-1.5 rounded-md bg-primary px-3 text-[11px] font-semibold uppercase tracking-wide text-primary-foreground shadow-sm sm:px-3.5"
+                  className="flex items-center gap-2 rounded-xl bg-primary px-4 py-2.5 sm:px-6 sm:py-3.5 text-xs sm:text-sm font-bold uppercase tracking-[0.12em] text-primary-foreground shadow-lg shadow-primary/25 min-h-11"
                 >
                   <Play className="h-4.5 w-4.5 fill-current" />
                   Watch now
@@ -3170,7 +3170,7 @@ function Detail({ type }: { type: 'movie' | 'tv' }) {
                   <button
                     onClick={() => setShowTrailer(true)}
                     data-testid="button-trailer"
-                    className="inline-flex h-8 items-center gap-1.5 rounded-md border border-white/20 bg-black/30 px-3 text-[11px] font-semibold uppercase tracking-wide text-foreground backdrop-blur transition hover:border-primary hover:text-primary sm:px-3.5"
+                    className="flex items-center gap-2 rounded-xl border border-white/20 bg-black/30 px-4 py-2.5 sm:px-6 sm:py-3.5 text-xs sm:text-sm font-bold uppercase tracking-[0.12em] text-foreground backdrop-blur transition hover:border-primary hover:text-primary min-h-11"
                   >
                     <Clapperboard className="h-4.5 w-4.5" />
                     Trailer
@@ -3180,7 +3180,7 @@ function Detail({ type }: { type: 'movie' | 'tv' }) {
                 {user && (
                   <button
                     onClick={() => toggle(item)}
-                    className="inline-flex h-8 items-center gap-1.5 rounded-md border border-white/20 px-3 text-[11px] font-semibold uppercase tracking-wide sm:px-3.5"
+                    className="flex items-center gap-2 rounded-xl border border-white/20 px-4 py-2.5 sm:px-6 sm:py-3.5 text-xs sm:text-sm font-bold uppercase tracking-[0.12em] min-h-11"
                   >
                     <Bookmark
                       className={`h-4.5 w-4.5 ${
@@ -3198,18 +3198,18 @@ function Detail({ type }: { type: 'movie' | 'tv' }) {
         </div>
       </div>
 
-      <div className="space-y-6 sm:space-y-8 px-0 sm:px-5 py-8 sm:py-10 lg:px-10">
+      <div className="space-y-10 sm:space-y-14 px-0 sm:px-5 py-10 sm:py-14 lg:px-10">
         <section className="grid gap-8 md:grid-cols-[1fr_2fr]">
           <div>
             <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
               The note
             </p>
-            <h2 className="mt-2 text-base font-semibold tracking-tight">
+            <h2 className="mt-2 text-3xl font-bold tracking-tight">
               Stay for the details.
             </h2>
           </div>
           <div>
-            <p className="text-sm leading-7 text-muted-foreground">
+            <p className="text-[16px] leading-7 text-muted-foreground">
               A high-signal pick with{' '}
               {detail.vote_count?.toLocaleString() || 'a growing audience'}{' '}
               votes.
@@ -3233,7 +3233,7 @@ function Detail({ type }: { type: 'movie' | 'tv' }) {
                 <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
                   On screen
                 </p>
-                <h2 className="mt-1 text-sm font-semibold tracking-tight">The cast</h2>
+                <h2 className="mt-1 text-3xl font-bold tracking-tight">The cast</h2>
               </div>
             </div>
             <div className="stagger-grid grid grid-cols-2 min-[400px]:grid-cols-3 gap-2.5 sm:grid-cols-4 lg:grid-cols-6">
@@ -3248,12 +3248,12 @@ function Detail({ type }: { type: 'movie' | 'tv' }) {
                         className="h-full w-full object-cover"
                       />
                     ) : (
-                      <div className="flex h-full items-center justify-center text-base font-semibold text-primary">
+                      <div className="flex h-full items-center justify-center text-2xl font-bold text-primary">
                         {actor.name[0]}
                       </div>
                     )}
                   </div>
-                  <p className="mt-2.5 text-xs font-semibold">{actor.name}</p>
+                  <p className="mt-2.5 text-[15px] font-semibold">{actor.name}</p>
                   <p className="mt-1 line-clamp-1 text-sm text-muted-foreground">
                     {actor.character}
                   </p>
@@ -3283,7 +3283,7 @@ function SeasonList({ seasons, id }: { seasons: Season[]; id: number }) {
           <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
             Keep going
           </p>
-          <h2 className="mt-1 text-sm font-semibold tracking-tight">Episodes</h2>
+          <h2 className="mt-1 text-3xl font-bold tracking-tight">Episodes</h2>
         </div>
         <div className="relative">
           <select
@@ -3318,7 +3318,7 @@ function SeasonList({ seasons, id }: { seasons: Season[]; id: number }) {
             <span className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/15 text-primary transition group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground">
               <Play className="h-3.5 w-3.5 fill-current" />
             </span>
-            <span className="text-xs font-semibold">Episode {i + 1}</span>
+            <span className="text-[15px] font-semibold">Episode {i + 1}</span>
             <span className="ml-auto font-mono text-[11px] text-muted-foreground">
               Watch episode
             </span>
@@ -3406,7 +3406,7 @@ function Watch({ type }: { type: 'movie' | 'tv' }) {
           <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
             Now showing
           </p>
-          <h1 className="mt-1 text-sm font-semibold tracking-tight">{title}</h1>
+          <h1 className="mt-1 text-3xl font-bold tracking-tight">{title}</h1>
         </div>
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <Clock3 className="h-4.5 w-4.5" />
@@ -3449,10 +3449,10 @@ function LocalCollection() {
       ) : !user ? (
         <div className="rounded-2xl border border-dashed border-white/15 bg-card/40 p-10 sm:p-16">
           <Bookmark className="h-7 w-7 text-primary" />
-          <h2 className="mt-3 text-base font-semibold tracking-tight">
+          <h2 className="mt-5 text-3xl font-bold tracking-tight">
             Sign in to use My List
           </h2>
-          <p className="mt-3 max-w-md text-sm leading-7 text-muted-foreground">
+          <p className="mt-3 max-w-md text-[16px] leading-7 text-muted-foreground">
             Bookmark is available only after you sign in. Your list stays with
             your account on this device.
           </p>
@@ -3486,10 +3486,10 @@ function LocalCollection() {
       ) : (
         <div className="rounded-2xl border border-dashed border-white/15 bg-card/40 p-10 sm:p-16">
           <Bookmark className="h-7 w-7 text-primary" />
-          <h2 className="mt-3 text-base font-semibold tracking-tight">
+          <h2 className="mt-5 text-3xl font-bold tracking-tight">
             Save a few for later.
           </h2>
-          <p className="mt-3 max-w-md text-sm leading-7 text-muted-foreground">
+          <p className="mt-3 max-w-md text-[16px] leading-7 text-muted-foreground">
             Tap the bookmark on anything that catches your eye.
           </p>
           <Link
@@ -3540,19 +3540,19 @@ function Profile() {
               {user ? 'Signed in' : 'Guest profile'}
             </span>
           </div>
-          <h2 className="mt-4 text-xl font-semibold tracking-tight">
+          <h2 className="mt-8 text-4xl font-bold tracking-tight">
             {user
               ? (user.user_metadata?.full_name as string) ||
                 user.email ||
                 'Your account'
               : 'Make the room yours.'}
           </h2>
-          <p className="mt-3 max-w-lg text-sm leading-7 text-muted-foreground">
+          <p className="mt-3 max-w-lg text-[16px] leading-7 text-muted-foreground">
             {user
               ? user.email
               : 'Tune the way Cine Stream feels on this device.'}
           </p>
-          <div className="mt-5 flex flex-wrap items-center gap-2">
+          <div className="mt-8 flex flex-wrap gap-3">
             {!loading && !user && (
               <>
                 <Link
@@ -3601,7 +3601,7 @@ function Profile() {
               Device storage
             </p>
             <div className="mt-5 flex items-center justify-between">
-              <span className="text-xs text-muted-foreground">
+              <span className="text-[15px] text-muted-foreground">
                 Catalog connection
               </span>
               <span className="flex items-center gap-2 text-sm">
@@ -3628,7 +3628,7 @@ function Profile() {
             href="/settings"
             className="flex items-center justify-between rounded-2xl border border-white/10 bg-card p-6 transition hover:border-white/30"
           >
-            <span className="flex items-center gap-3 text-xs font-semibold">
+            <span className="flex items-center gap-3 text-[15px] font-semibold">
               <Settings2 className="h-5 w-5 text-primary" />
               Preferences
             </span>
@@ -3677,7 +3677,7 @@ function Preferences() {
             className="flex items-center justify-between gap-6 py-6"
           >
             <div>
-              <p className="text-xs font-semibold">{label}</p>
+              <p className="text-[15px] font-semibold">{label}</p>
               <p className="mt-1 text-sm leading-5 text-muted-foreground">
                 {copy}
               </p>
@@ -3701,7 +3701,7 @@ function Preferences() {
 
         <div className="flex items-center justify-between gap-6 py-6">
           <div>
-            <p className="text-xs font-semibold">Playback quality</p>
+            <p className="text-[15px] font-semibold">Playback quality</p>
             <p className="mt-1 text-sm leading-5 text-muted-foreground">
               Let the room adapt to your connection.
             </p>
@@ -3771,8 +3771,8 @@ function Admin({ section = 'overview' }: { section?: string }) {
               <span className="font-mono text-[11px] font-semibold text-primary">
                 0{i + 1}
               </span>
-              <h2 className="mt-5 text-sm font-semibold tracking-tight">{label}</h2>
-              <p className="mt-3 text-xs leading-6 text-muted-foreground">
+              <h2 className="mt-5 text-2xl font-bold tracking-tight">{label}</h2>
+              <p className="mt-3 text-[15px] leading-6 text-muted-foreground">
                 This studio surface is intentionally reserved for the server
                 setup that powers it.
               </p>
@@ -3800,8 +3800,8 @@ function About() {
           <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
             Catalog
           </p>
-          <h2 className="mt-2 text-sm font-semibold tracking-tight">Powered by TMDB</h2>
-          <p className="mt-3 text-xs leading-6 text-muted-foreground">
+          <h2 className="mt-4 text-2xl font-bold tracking-tight">Powered by TMDB</h2>
+          <p className="mt-3 text-[15px] leading-6 text-muted-foreground">
             Poster, backdrop, title, cast, genre, and rating metadata comes
             from The Movie Database.
           </p>
@@ -3810,16 +3810,16 @@ function About() {
           <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
             Your room
           </p>
-          <h2 className="mt-2 text-sm font-semibold tracking-tight">
+          <h2 className="mt-4 text-2xl font-bold tracking-tight">
             Guest-first by default
           </h2>
-          <p className="mt-3 text-xs leading-6 text-muted-foreground">
+          <p className="mt-3 text-[15px] leading-6 text-muted-foreground">
             My List and watch history stay local on this device until an
             account service is connected.
           </p>
         </div>
       </section>
-      <p className="border-l-2 border-primary pl-5 text-xs leading-7 text-muted-foreground">
+      <p className="border-l-2 border-primary pl-5 text-[15px] leading-7 text-muted-foreground">
         This product uses the TMDB API but is not endorsed or certified by
         TMDB.
       </p>
@@ -3833,8 +3833,8 @@ function NotFound() {
       <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-primary">
         Reel not found / 404
       </p>
-      <h1 className="mt-4 text-2xl font-semibold tracking-tight">Cut to black.</h1>
-      <p className="mt-4 max-w-md text-sm leading-7 text-muted-foreground">
+      <h1 className="mt-4 text-6xl font-bold tracking-tight">Cut to black.</h1>
+      <p className="mt-4 max-w-md text-[16px] leading-7 text-muted-foreground">
         That scene does not exist in this theater.
       </p>
       <Link
@@ -3933,10 +3933,10 @@ function AuthWallModal({
         <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
           Members only
         </p>
-        <h2 className="mt-2 text-sm font-semibold tracking-tight text-foreground">
+        <h2 className="mt-2 text-2xl font-bold tracking-tight text-foreground">
           Sign in to watch
         </h2>
-        <p className="mt-3 text-xs leading-6 text-muted-foreground">
+        <p className="mt-3 text-[15px] leading-6 text-muted-foreground">
           Create a free account or sign in to play movies and series.
         </p>
 
@@ -4149,10 +4149,10 @@ function CompleteProfile() {
         <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
           Almost there
         </p>
-        <h1 className="mt-2 text-lg font-semibold tracking-tight sm:text-xl">
+        <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
           Complete your profile
         </h1>
-        <p className="mt-3 text-xs leading-6 text-muted-foreground">
+        <p className="mt-3 text-[15px] leading-6 text-muted-foreground">
           Tell us your name and age so we can personalize your theater.
         </p>
       </div>
@@ -4161,7 +4161,7 @@ function CompleteProfile() {
         <div>
           <label
             htmlFor="profile-name"
-            className="mb-2 block text-[11px] font-semibold text-foreground"
+            className="mb-2 block text-[13px] font-semibold text-foreground"
           >
             Full name
           </label>
@@ -4173,14 +4173,14 @@ function CompleteProfile() {
             value={name}
             onChange={e => setName(e.target.value)}
             placeholder="e.g. Ali Khan"
-            className="h-12 w-full rounded-xl border border-white/15 bg-card px-4 text-xs font-medium text-foreground outline-none transition focus:border-primary"
+            className="h-12 w-full rounded-xl border border-white/15 bg-card px-4 text-[15px] font-medium text-foreground outline-none transition focus:border-primary"
           />
         </div>
 
         <div>
           <label
             htmlFor="profile-age"
-            className="mb-2 block text-[11px] font-semibold text-foreground"
+            className="mb-2 block text-[13px] font-semibold text-foreground"
           >
             Age
           </label>
@@ -4193,7 +4193,7 @@ function CompleteProfile() {
             value={age}
             onChange={e => setAge(e.target.value)}
             placeholder="e.g. 22"
-            className="h-12 w-full rounded-xl border border-white/15 bg-card px-4 text-xs font-medium text-foreground outline-none transition focus:border-primary"
+            className="h-12 w-full rounded-xl border border-white/15 bg-card px-4 text-[15px] font-medium text-foreground outline-none transition focus:border-primary"
           />
         </div>
 

@@ -80,14 +80,14 @@ export function SignInPage() {
 
   return (
     <div className="flex min-h-[100dvh] items-center justify-center px-3 py-8 sm:px-4">
-      <div className="w-full max-w-md space-y-3 sm:space-y-4 rounded-xl border border-white/10 bg-black/40 p-4 sm:p-6">
-        <h1 className="text-lg font-semibold">Sign in</h1>
+      <div className="w-full max-w-md space-y-4 sm:space-y-5 rounded-xl border border-white/10 bg-black/40 p-5 sm:p-8">
+        <h1 className="text-xl sm:text-2xl font-bold">Sign in</h1>
 
         <div className="space-y-3">
           <button
             type="button"
             onClick={handleGoogle}
-            className="flex w-full items-center justify-center gap-3 rounded-xl border border-white/20 bg-white py-2 text-xs font-semibold text-gray-800 transition hover:bg-gray-100"
+            className="flex w-full items-center justify-center gap-3 rounded-xl border border-white/20 bg-white py-2.5 text-sm font-semibold text-gray-800 transition hover:bg-gray-100"
           >
             <GoogleIcon />
             Continue with Google
@@ -95,7 +95,7 @@ export function SignInPage() {
           <button
             type="button"
             onClick={handleGithub}
-            className="flex w-full items-center justify-center gap-3 rounded-xl bg-[#181717] py-2 text-xs font-semibold text-white transition hover:bg-[#2b2b2b]"
+            className="flex w-full items-center justify-center gap-3 rounded-xl bg-[#181717] py-2.5 text-sm font-semibold text-white transition hover:bg-[#2b2b2b]"
           >
             <GithubIcon />
             Continue with GitHub
@@ -195,14 +195,14 @@ export function SignUpPage() {
 
   return (
     <div className="flex min-h-[100dvh] items-center justify-center px-3 py-8 sm:px-4">
-      <div className="w-full max-w-md space-y-3 sm:space-y-4 rounded-xl border border-white/10 bg-black/40 p-4 sm:p-6">
-        <h1 className="text-lg font-semibold">Create account</h1>
+      <div className="w-full max-w-md space-y-4 sm:space-y-5 rounded-xl border border-white/10 bg-black/40 p-5 sm:p-8">
+        <h1 className="text-xl sm:text-2xl font-bold">Create account</h1>
 
         <div className="space-y-3">
           <button
             type="button"
             onClick={handleGoogle}
-            className="flex w-full items-center justify-center gap-3 rounded-xl border border-white/20 bg-white py-2 text-xs font-semibold text-gray-800 transition hover:bg-gray-100"
+            className="flex w-full items-center justify-center gap-3 rounded-xl border border-white/20 bg-white py-2.5 text-sm font-semibold text-gray-800 transition hover:bg-gray-100"
           >
             <GoogleIcon />
             Continue with Google
@@ -210,7 +210,7 @@ export function SignUpPage() {
           <button
             type="button"
             onClick={handleGithub}
-            className="flex w-full items-center justify-center gap-3 rounded-xl bg-[#181717] py-2 text-xs font-semibold text-white transition hover:bg-[#2b2b2b]"
+            className="flex w-full items-center justify-center gap-3 rounded-xl bg-[#181717] py-2.5 text-sm font-semibold text-white transition hover:bg-[#2b2b2b]"
           >
             <GithubIcon />
             Continue with GitHub

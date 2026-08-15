@@ -46,7 +46,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     /* Base 16px — better readability + consistent rem scaling */
-    font-size: 14px;
+    font-size: 16px;
     /* Prevent iOS text size adjust */
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
@@ -97,7 +97,7 @@
   /* Mobile: slightly denser base, NO zoom hacks */
   @media (max-width: 640px) {
     html {
-      font-size: 13px;
+      font-size: 15px;
     }
     body {
       background-attachment: scroll; /* fixed bg can lag on mobile */
