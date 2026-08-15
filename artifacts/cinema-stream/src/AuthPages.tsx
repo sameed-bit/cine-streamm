@@ -25,10 +25,10 @@ function GoogleIcon() {
   );
 }
 
-function FacebookIcon() {
+function GithubIcon() {
   return (
     <svg className="h-5 w-5" viewBox="0 0 24 24" fill="white" aria-hidden="true">
-      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+      <path d="M12 .5C5.73.5.98 5.24.98 11.52c0 5.02 3.26 9.28 7.78 10.78.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.11-3.17.69-3.84-1.36-3.84-1.36-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.75 1.18 1.75 1.18 1.02 1.75 2.68 1.24 3.34.95.1-.74.4-1.24.72-1.53-2.53-.29-5.19-1.27-5.19-5.63 0-1.24.44-2.26 1.17-3.06-.12-.29-.51-1.45.11-3.02 0 0 .96-.31 3.14 1.17a10.9 10.9 0 0 1 2.86-.39c.97 0 1.94.13 2.86.39 2.18-1.48 3.14-1.17 3.14-1.17.62 1.57.23 2.73.11 3.02.73.8 1.17 1.82 1.17 3.06 0 4.37-2.66 5.34-5.2 5.62.41.36.77 1.06.77 2.15 0 1.55-.01 2.8-.01 3.18 0 .31.21.66.79.55A11.03 11.03 0 0 0 23.02 11.52C23.02 5.24 18.27.5 12 .5z" />
     </svg>
   );
 }
@@ -67,10 +67,10 @@ export function SignInPage() {
     if (error) setError(error.message);
   };
 
-  const handleFacebook = async () => {
+  const handleGithub = async () => {
     setError(null);
     const { error } = await supabase.auth.signInWithOAuth({
-      provider: "facebook",
+      provider: "github",
       options: {
         redirectTo: `${window.location.origin}/`,
       },
@@ -94,11 +94,11 @@ export function SignInPage() {
           </button>
           <button
             type="button"
-            onClick={handleFacebook}
-            className="flex w-full items-center justify-center gap-3 rounded-xl bg-[#1877F2] py-2.5 text-sm font-semibold text-white transition hover:bg-[#166FE5]"
+            onClick={handleGithub}
+            className="flex w-full items-center justify-center gap-3 rounded-xl bg-[#181717] py-2.5 text-sm font-semibold text-white transition hover:bg-[#2b2b2b]"
           >
-            <FacebookIcon />
-            Continue with Facebook
+            <GithubIcon />
+            Continue with GitHub
           </button>
         </div>
 
@@ -115,7 +115,7 @@ export function SignInPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full rounded border border-white/20 bg-transparent px-3 py-2"
+            className="w-full rounded border border-white/20 bg-transparent px-4 py-3 text-base sm:px-3 sm:py-2 sm:text-sm"
           />
           <input
             type="password"
@@ -123,12 +123,12 @@ export function SignInPage() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className="w-full rounded border border-white/20 bg-transparent px-3 py-2"
+            className="w-full rounded border border-white/20 bg-transparent px-4 py-3 text-base sm:px-3 sm:py-2 sm:text-sm"
           />
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded bg-primary py-2 font-semibold text-primary-foreground disabled:opacity-50"
+            className="w-full rounded bg-primary py-3 text-base font-semibold text-primary-foreground disabled:opacity-50 sm:py-2 sm:text-sm"
           >
             {loading ? "Signing in…" : "Sign in"}
           </button>
@@ -182,10 +182,10 @@ export function SignUpPage() {
     if (error) setError(error.message);
   };
 
-  const handleFacebook = async () => {
+  const handleGithub = async () => {
     setError(null);
     const { error } = await supabase.auth.signInWithOAuth({
-      provider: "facebook",
+      provider: "github",
       options: {
         redirectTo: `${window.location.origin}/`,
       },
@@ -209,11 +209,11 @@ export function SignUpPage() {
           </button>
           <button
             type="button"
-            onClick={handleFacebook}
-            className="flex w-full items-center justify-center gap-3 rounded-xl bg-[#1877F2] py-2.5 text-sm font-semibold text-white transition hover:bg-[#166FE5]"
+            onClick={handleGithub}
+            className="flex w-full items-center justify-center gap-3 rounded-xl bg-[#181717] py-2.5 text-sm font-semibold text-white transition hover:bg-[#2b2b2b]"
           >
-            <FacebookIcon />
-            Continue with Facebook
+            <GithubIcon />
+            Continue with GitHub
           </button>
         </div>
 
@@ -230,7 +230,7 @@ export function SignUpPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full rounded border border-white/20 bg-transparent px-3 py-2"
+            className="w-full rounded border border-white/20 bg-transparent px-4 py-3 text-base sm:px-3 sm:py-2 sm:text-sm"
           />
           <input
             type="password"
@@ -239,12 +239,12 @@ export function SignUpPage() {
             onChange={(e) => setPassword(e.target.value)}
             required
             minLength={6}
-            className="w-full rounded border border-white/20 bg-transparent px-3 py-2"
+            className="w-full rounded border border-white/20 bg-transparent px-4 py-3 text-base sm:px-3 sm:py-2 sm:text-sm"
           />
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded bg-primary py-2 font-semibold text-primary-foreground disabled:opacity-50"
+            className="w-full rounded bg-primary py-3 text-base font-semibold text-primary-foreground disabled:opacity-50 sm:py-2 sm:text-sm"
           >
             {loading ? "Creating account…" : "Sign up"}
           </button>

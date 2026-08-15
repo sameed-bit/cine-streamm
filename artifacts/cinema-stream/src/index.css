@@ -143,3 +143,50 @@
 .group:hover .cinema-shine {
   opacity: 1;
 }
+@media (max-width: 640px) {
+  body {
+    zoom: 50%;
+  }
+  header {
+    zoom: 180%;
+  }
+  footer {
+    zoom: 170%;
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    zoom: 50%;
+  }
+  header {
+    zoom: 180%;
+  }
+  footer {
+    zoom: 170%;
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    zoom: 50%;
+  }
+  header {
+    zoom: 180%;
+  }
+  footer {
+    zoom: 170%;
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    zoom: 50%;
+  }
+  header {
+    zoom: 180%;
+  }
+  footer {
+    zoom: 170%;
+  }
+}

@@ -689,7 +689,7 @@ function Skeleton({ className = '' }: { className?: string }) {
 
 function LoadingRail() {
   return (
-    <div className="stagger-grid grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-6">
+    <div className="stagger-grid grid grid-cols-3 gap-2 sm:grid-cols-4 lg:grid-cols-6">
       {Array.from({ length: 6 }).map((_, i) => (
         <Skeleton key={i} className="aspect-[2/3]" />
       ))}
@@ -1019,7 +1019,7 @@ function Rail({
       </div>
 
       {cleanItems.length ? (
-        <div className="stagger-grid grid grid-cols-2 gap-x-3 gap-y-8 sm:grid-cols-4 lg:grid-cols-6">
+        <div className="stagger-grid grid grid-cols-3 gap-x-2 gap-y-6 sm:grid-cols-4 lg:grid-cols-6">
           {cleanItems.map(item => (
             <MediaCard
               key={mediaKey(item)}
@@ -1044,15 +1044,15 @@ function Rail({
 /** Navbar account buttons — Sign in / Sign up or Profile + avatar */
 function AuthNavActions() {
   const { user, loading } = useAuth();
-
+ 
   if (loading) {
     return (
-      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/5">
+      <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-2xl bg-white/5">
         <span className="h-4 w-4 animate-pulse rounded-full bg-white/20" />
       </div>
     );
   }
-
+ 
   if (user) {
     const initial =
       (user.user_metadata?.full_name as string)?.[0]?.toUpperCase() ||
@@ -1062,9 +1062,9 @@ function AuthNavActions() {
       <Link
         href="/profile"
         aria-label="Profile"
-        className="flex h-12 items-center gap-2 rounded-2xl border-0 bg-white/10 px-3 text-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] backdrop-blur-md transition hover:bg-white/16"
+        className="flex h-10 sm:h-12 items-center gap-2 rounded-2xl border-0 bg-white/10 px-2.5 sm:px-3 text-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] backdrop-blur-md transition hover:bg-white/16"
       >
-        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/20 text-sm font-bold text-primary">
+        <span className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-primary/20 text-sm font-bold text-primary">
           {initial}
         </span>
         <span className="hidden max-w-[100px] truncate text-[13px] font-semibold sm:inline">
@@ -1073,27 +1073,20 @@ function AuthNavActions() {
       </Link>
     );
   }
-
+ 
   return (
     <>
       <Link
         href="/sign-in"
-        className="hidden h-12 items-center rounded-2xl border-0 bg-white/10 px-4 text-[13px] font-semibold text-foreground backdrop-blur-md transition hover:bg-white/16 sm:flex"
+        className="flex h-10 sm:h-12 items-center rounded-2xl border-0 bg-white/10 px-2.5 sm:px-4 text-[12px] sm:text-[13px] font-semibold text-foreground backdrop-blur-md transition hover:bg-white/16"
       >
         Sign in
       </Link>
       <Link
         href="/sign-up"
-        className="flex h-12 items-center rounded-2xl bg-primary px-4 text-[13px] font-semibold text-primary-foreground transition hover:brightness-110"
+        className="hidden sm:flex h-10 sm:h-12 items-center rounded-2xl bg-primary px-2.5 sm:px-4 text-[12px] sm:text-[13px] font-semibold text-primary-foreground transition hover:brightness-110"
       >
         Sign up
-      </Link>
-      <Link
-        href="/profile"
-        className="flex h-12 w-12 items-center justify-center rounded-2xl border-0 bg-white/10 text-foreground sm:hidden"
-        aria-label="Profile"
-      >
-        <UserRound className="h-5 w-5 stroke-[2.25]" />
       </Link>
     </>
   );
@@ -1102,14 +1095,14 @@ function AuthNavActions() {
 function Shell({ children }: { children: ReactNode }) {
   const [location] = useLocation();
   const [menu, setMenu] = useState(false);
-
+ 
   // Always start at the top when opening a movie / any new page
   useEffect(() => {
     window.scrollTo(0, 0);
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
   }, [location]);
-
+ 
   const nav = [
     { href: '/', label: 'Tonight', icon: Clapperboard },
     { href: '/movies', label: 'Movies', icon: Film },
@@ -1117,7 +1110,7 @@ function Shell({ children }: { children: ReactNode }) {
     { href: '/anime', label: 'Anime', icon: Sparkles },
     { href: '/genres', label: 'Genres', icon: List },
   ];
-
+ 
   return (
     <div
       className="min-h-[100dvh] bg-background"
@@ -1130,75 +1123,47 @@ function Shell({ children }: { children: ReactNode }) {
         className="fixed inset-x-0 top-0 z-40 border-0"
         style={{
           background:
-            'linear-gradient(180deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.02) 100%), rgba(12, 12, 16, 0.55)',
+            'linear-gradient(180deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.02) 100%), rgba(12, 12, 16, 0.75)',
           backdropFilter: 'blur(24px) saturate(140%)',
           WebkitBackdropFilter: 'blur(24px) saturate(140%)',
           boxShadow: '0 8px 28px rgba(0,0,0,0.18)',
         }}
       >
-        <div className="mx-auto flex h-[88px] max-w-[1480px] items-center gap-4 px-5 lg:gap-6 lg:px-10">
-          <button
-            data-testid="button-menu"
-            aria-label="Open navigation"
-            onClick={() => setMenu(!menu)}
-            className="flex h-11 w-11 items-center justify-center rounded-2xl border-0 bg-white/10 text-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] backdrop-blur-md transition hover:bg-white/16 lg:hidden"
-          >
-            <Menu className="h-5 w-5" />
-          </button>
-
-          <Link href="/" className="flex shrink-0 items-center gap-2.5 group sm:gap-3">
-            <span className="transition group-hover:scale-105 group-hover:brightness-110">
-              <BrandLogo size={62} />
+        <div className="mx-auto flex h-[72px] sm:h-[88px] max-w-[1480px] items-center gap-2 px-3 sm:gap-4 sm:px-5 lg:gap-6 lg:px-10">
+          <Link href="/" className="flex min-w-0 shrink-0 items-center gap-2 group">
+            <span className="shrink-0 transition group-hover:scale-105 group-hover:brightness-110">
+              <BrandLogo size={38} className="sm:hidden" />
+              <BrandLogo size={62} className="hidden sm:block" />
             </span>
-            <span className="text-[18px] font-semibold tracking-tight text-foreground">
+            <span className="text-[18px] sm:text-[18px] font-semibold tracking-tight text-foreground">
               Cine <span className="text-primary">Stream</span>
             </span>
           </Link>
 
-          <nav
-            className={`${
-              menu ? 'flex' : 'hidden'
-            } absolute left-0 right-0 top-[88px] flex-col gap-1 border-0 p-3 lg:static lg:flex lg:flex-row lg:items-center lg:gap-1 lg:bg-transparent lg:p-0`}
-            style={
-              menu
-                ? {
-                    background:
-                      'linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%), rgba(12, 12, 16, 0.75)',
-                    backdropFilter: 'blur(24px) saturate(140%)',
-                    WebkitBackdropFilter: 'blur(24px) saturate(140%)',
-                  }
-                : undefined
-            }
-          >
+          <nav className="hidden lg:flex lg:items-center lg:gap-1">
             {nav.map(({ href, label, icon: Icon }) => (
               <Link
                 key={href}
                 href={href}
-                onClick={() => setMenu(false)}
-                className={`flex items-center gap-2 rounded-2xl px-3.5 py-2.5 text-[14px] font-semibold tracking-tight transition-all duration-200 ${
+                className={
                   location === href
-                    ? 'bg-white/18 text-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]'
-                    : 'text-white/70 hover:bg-white/10 hover:text-foreground'
-                }`}
+                    ? 'flex items-center gap-2 rounded-2xl px-3.5 py-2.5 text-[14px] font-semibold tracking-tight bg-white/18 text-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]'
+                    : 'flex items-center gap-2 rounded-2xl px-3.5 py-2.5 text-[14px] font-semibold tracking-tight text-white/70 transition-all duration-200 hover:bg-white/10 hover:text-foreground'
+                }
               >
-                <Icon
-                  className={`h-[17px] w-[17px] ${
-                    location === href ? 'text-primary' : ''
-                  }`}
-                />
+                <Icon className={location === href ? 'h-[17px] w-[17px] text-primary' : 'h-[17px] w-[17px]'} />
                 {label}
               </Link>
             ))}
           </nav>
 
-          {/* Search + actions – softer liquid glass chips */}
-          <div className="ml-auto flex items-center gap-2">
+          <div className="ml-auto flex min-w-0 items-center gap-1 sm:gap-2">
             <Link
               href="/search"
               aria-label="Search"
-              className="flex h-12 items-center justify-center gap-2.5 rounded-2xl border-0 bg-white/10 px-5 text-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur-md transition hover:bg-white/16 sm:min-w-[188px]"
+              className="flex h-10 sm:h-12 shrink-0 items-center justify-center gap-2.5 rounded-2xl border-0 bg-white/10 px-3 sm:px-5 text-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur-md transition hover:bg-white/16 sm:min-w-[188px]"
             >
-              <Search className="h-5 w-5 shrink-0 stroke-[2.5]" />
+              <Search className="h-4.5 w-4.5 sm:h-5 sm:w-5 shrink-0 stroke-[2.5]" />
               <span className="hidden text-[15px] font-semibold tracking-tight sm:inline">
                 Search
               </span>
@@ -1207,30 +1172,77 @@ function Shell({ children }: { children: ReactNode }) {
             <Link
               href="/my-list"
               aria-label="My List"
-              className="flex h-12 w-12 items-center justify-center rounded-2xl border-0 bg-white/10 text-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] backdrop-blur-md transition hover:bg-white/16"
+              className="hidden sm:flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-2xl border-0 bg-white/10 text-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] backdrop-blur-md transition hover:bg-white/16"
             >
               <Bookmark className="h-5 w-5 stroke-[2.25]" />
             </Link>
             <Link
               href="/history"
               aria-label="Watch History"
-              className="flex h-12 w-12 items-center justify-center rounded-2xl border-0 bg-white/10 text-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] backdrop-blur-md transition hover:bg-white/16"
+              className="hidden sm:flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-2xl border-0 bg-white/10 text-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] backdrop-blur-md transition hover:bg-white/16"
             >
               <History className="h-5 w-5 stroke-[2.25]" />
             </Link>
             <AuthNavActions />
           </div>
         </div>
-      </header>
 
+        {!['/search', '/sign-in', '/sign-up'].includes(location) && (
+        <div
+          className="flex items-center justify-around gap-1 border-t border-white/10 px-2 pt-2.5 pb-3.5 lg:hidden"
+          style={{
+            background: 'rgba(10, 10, 14, 0.97)',
+            backdropFilter: 'blur(10px)',
+            WebkitBackdropFilter: 'blur(10px)',
+          }}
+        >
+          <Link
+            href="/"
+            className={location === '/' ? 'flex flex-col items-center gap-0.5 rounded-lg px-3 py-1 text-[10px] font-semibold text-primary' : 'flex flex-col items-center gap-0.5 rounded-lg px-3 py-1 text-[10px] font-semibold text-white/60'}
+          >
+            <Clapperboard className="h-[16px] w-[16px]" />
+            Tonight
+          </Link>
+          <Link
+            href="/movies"
+            className={location === '/movies' ? 'flex flex-col items-center gap-0.5 rounded-lg px-3 py-1 text-[10px] font-semibold text-primary' : 'flex flex-col items-center gap-0.5 rounded-lg px-3 py-1 text-[10px] font-semibold text-white/60'}
+          >
+            <Film className="h-[16px] w-[16px]" />
+            Movies
+          </Link>
+          <Link
+            href="/tv-shows"
+            className={location === '/tv-shows' ? 'flex flex-col items-center gap-0.5 rounded-lg px-3 py-1 text-[10px] font-semibold text-primary' : 'flex flex-col items-center gap-0.5 rounded-lg px-3 py-1 text-[10px] font-semibold text-white/60'}
+          >
+            <Tv className="h-[16px] w-[16px]" />
+            Series
+          </Link>
+          <Link
+            href="/anime"
+            className={location === '/anime' ? 'flex flex-col items-center gap-0.5 rounded-lg px-3 py-1 text-[10px] font-semibold text-primary' : 'flex flex-col items-center gap-0.5 rounded-lg px-3 py-1 text-[10px] font-semibold text-white/60'}
+          >
+            <Sparkles className="h-[16px] w-[16px]" />
+            Anime
+          </Link>
+          <Link
+            href="/genres"
+            className={location === '/genres' ? 'flex flex-col items-center gap-0.5 rounded-lg px-3 py-1 text-[10px] font-semibold text-primary' : 'flex flex-col items-center gap-0.5 rounded-lg px-3 py-1 text-[10px] font-semibold text-white/60'}
+          >
+            <List className="h-[16px] w-[16px]" />
+            Genres
+          </Link>
+        </div>
+      )}
+      </header>
+ 
       <main
-        className="animate-fade-in mx-auto max-w-[1480px] px-5 pb-16 pt-24 lg:px-10"
+        className={`animate-fade-in mx-auto max-w-[1480px] px-4 pb-16 sm:px-5 lg:px-10 ${!['/search', '/sign-in', '/sign-up'].includes(location) ? 'pt-[236px] sm:pt-[242px] lg:pt-24' : 'pt-24 sm:pt-28 lg:pt-24'}`}
         key={location}
       >
         {children}
       </main>
-
-      <footer className="border-t border-white/10 px-5 py-10 lg:px-10">
+ 
+      <footer className="border-t border-white/10 px-4 py-6 sm:px-5 sm:py-10 lg:px-10">
         <div className="mx-auto max-w-[1480px]">
           {/* Brand row */}
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -1250,9 +1262,9 @@ function Shell({ children }: { children: ReactNode }) {
               TMDB.
             </p>
           </div>
-
+ 
           {/* Link columns */}
-          <div className="mt-8 grid grid-cols-2 gap-8 sm:max-w-md">
+          <div className="mt-6 grid grid-cols-3 gap-4 sm:mt-8 sm:max-w-lg sm:gap-8">
             <div>
               <p className="mb-3 text-[12px] font-semibold uppercase tracking-[0.12em] text-white/50">
                 Browse
@@ -1280,7 +1292,7 @@ function Shell({ children }: { children: ReactNode }) {
                 </li>
               </ul>
             </div>
-
+ 
             <div>
               <p className="mb-3 text-[12px] font-semibold uppercase tracking-[0.12em] text-white/50">
                 Your library
@@ -1308,8 +1320,31 @@ function Shell({ children }: { children: ReactNode }) {
                 </li>
               </ul>
             </div>
-          </div>
 
+            <div>
+              <p className="mb-3 text-[12px] font-semibold uppercase tracking-[0.12em] text-white/50">
+                Support
+              </p>
+              <ul className="space-y-2 text-[13px] text-white/60">
+                <li>
+                  <a href="mailto:sameedb08@gmail.com" className="transition hover:text-foreground">
+                    Contact us
+                  </a>
+                </li>
+                <li>
+                  <Link href="/about" className="transition hover:text-foreground">
+                    Help Center
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/about" className="transition hover:text-foreground">
+                    Terms of Service
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+ 
           {/* Bottom bar */}
           <div className="mt-10 flex flex-col gap-2 border-t border-white/8 pt-5 text-[12px] text-white/35 sm:flex-row sm:items-center sm:justify-between">
             <p>© {new Date().getFullYear()} Cine Stream. All rights reserved.</p>
@@ -1322,7 +1357,6 @@ function Shell({ children }: { children: ReactNode }) {
     </div>
   );
 }
-
 /* =========================================================
    PAGE INTRO – Bigger text
    ========================================================= */
@@ -1339,7 +1373,7 @@ function PageIntro({
   return (
     <div className="max-w-2xl">
       <p
-        className="text-[13px] font-semibold tracking-[-0.01em] sm:text-[14px]"
+        className="hidden sm:block text-[13px] font-semibold tracking-[-0.01em] sm:text-[14px]"
         style={{
           color: 'hsl(353 78% 62%)',
           letterSpacing: '0.01em',
@@ -1348,11 +1382,11 @@ function PageIntro({
         {kicker}
       </p>
 
-      <h1 className="mt-2.5 text-[2rem] font-semibold leading-[1.12] tracking-[-0.025em] text-foreground sm:text-[2.75rem]">
+      <h1 className="mt-2.5 text-[2.35rem] font-semibold leading-[1.12] tracking-[-0.025em] text-foreground sm:text-[2.75rem]">
         {title}
       </h1>
 
-      <p className="mt-4 text-[15.5px] font-normal leading-[1.55] text-muted-foreground sm:text-[16.5px]">
+      <p className="mt-4 text-[16.5px] font-normal leading-[1.55] text-muted-foreground sm:text-[17.5px]">
         {copy}
       </p>
     </div>
@@ -1879,7 +1913,7 @@ function Browse({ type }: { type: 'movie' | 'tv' }) {
   } else {
     content = (
       <>
-        <div className="stagger-grid grid grid-cols-2 gap-x-3 gap-y-9 sm:grid-cols-4 lg:grid-cols-6">
+        <div className="stagger-grid grid grid-cols-3 gap-x-2 gap-y-7 sm:grid-cols-4 lg:grid-cols-6">
           {displayItems.map(item => (
             <MediaCard
               key={mediaKey(item)}
@@ -1948,7 +1982,7 @@ function Browse({ type }: { type: 'movie' | 'tv' }) {
           </button>
         ))}
 
-        <div className="ml-auto flex flex-wrap items-center gap-2">
+        <div className="ml-auto grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:items-center">
           <GlassDropdown
             label="Filter by genre"
             value={genreId}
@@ -2125,7 +2159,7 @@ function AnimePage() {
           </button>
         ))}
 
-        <div className="ml-auto flex flex-wrap items-center gap-2">
+        <div className="ml-auto grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:items-center">
           <GlassDropdown
             label="Filter anime by genre"
             value={genreId}
@@ -2167,7 +2201,7 @@ function AnimePage() {
         <QueryMessage error retry={() => result.refetch()} />
       ) : (
         <>
-          <div className="stagger-grid grid grid-cols-2 gap-x-3 gap-y-9 sm:grid-cols-4 lg:grid-cols-6">
+          <div className="stagger-grid grid grid-cols-3 gap-x-2 gap-y-7 sm:grid-cols-4 lg:grid-cols-6">
             {allItems.map(item => (
               <MediaCard
                 key={mediaKey(item)}
@@ -2240,7 +2274,7 @@ function HistoryPage() {
       </div>
 
       {items.length ? (
-        <div className="stagger-grid grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-6">
+        <div className="stagger-grid grid grid-cols-3 gap-2 sm:grid-cols-4 lg:grid-cols-6">
           {items.map(item => (
             <MediaCard
               key={mediaKey(item)}
@@ -2460,8 +2494,8 @@ function Genres() {
       )}
 
       {/* Year + Country filters */}
-      <div className="flex flex-wrap items-center gap-2.5">
-        <div className="w-full min-w-0 sm:w-36">
+      <div className="grid grid-cols-2 gap-2.5 sm:flex sm:flex-wrap sm:items-center">
+        <div className="min-w-0 sm:w-36">
           <GlassDropdown
             label="Filter by year"
             value={yearFilter}
@@ -2473,7 +2507,7 @@ function Genres() {
             ]}
           />
         </div>
-        <div className="w-full min-w-0 sm:w-44">
+        <div className="min-w-0 sm:w-44">
           <GlassDropdown
             label="Filter by country"
             value={countryFilter}
@@ -2547,7 +2581,7 @@ function Genres() {
           <QueryMessage error retry={() => activeQuery.refetch()} />
         ) : (
           <>
-            <div className="stagger-grid grid grid-cols-2 gap-x-3 gap-y-7 sm:grid-cols-4 lg:grid-cols-6">
+            <div className="stagger-grid grid grid-cols-3 gap-x-2 gap-y-6 sm:grid-cols-4 lg:grid-cols-6">
               {allItems.map(item => (
                 <MediaCard
                   key={mediaKey(item)}
@@ -2907,7 +2941,7 @@ function SearchPage() {
             <LoadingRail />
           ) : (
             <>
-              <div className="stagger-grid grid grid-cols-2 gap-x-3 gap-y-7 sm:grid-cols-4 lg:grid-cols-6">
+              <div className="stagger-grid grid grid-cols-3 gap-x-2 gap-y-6 sm:grid-cols-4 lg:grid-cols-6">
                 {displayItems.map(item => (
                   <MediaCard
                     key={mediaKey(item)}
@@ -2955,7 +2989,7 @@ function SearchPage() {
 
             {displayItems.length ? (
               <>
-                <div className="stagger-grid grid grid-cols-2 gap-x-3 gap-y-7 sm:grid-cols-4 lg:grid-cols-6">
+                <div className="stagger-grid grid grid-cols-3 gap-x-2 gap-y-6 sm:grid-cols-4 lg:grid-cols-6">
                   {displayItems.map(item => (
                     <MediaCard
                       key={mediaKey(item)}
@@ -3206,7 +3240,7 @@ function Detail({ type }: { type: 'movie' | 'tv' }) {
                 <h2 className="mt-1 text-3xl font-bold tracking-tight">The cast</h2>
               </div>
             </div>
-            <div className="stagger-grid grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-6">
+            <div className="stagger-grid grid grid-cols-3 gap-2 sm:grid-cols-4 lg:grid-cols-6">
               {detail.cast.slice(0, 6).map(actor => (
                 <div key={actor.id} className="rounded-xl border border-white/10 bg-card p-2.5">
                   <div className="aspect-square overflow-hidden rounded-lg bg-muted">
@@ -3443,7 +3477,7 @@ function LocalCollection() {
           </div>
         </div>
       ) : items.length ? (
-        <div className="stagger-grid grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-6">
+        <div className="stagger-grid grid grid-cols-3 gap-2 sm:grid-cols-4 lg:grid-cols-6">
           {items.map(item => (
             <MediaCard
               key={mediaKey(item)}
@@ -3924,14 +3958,10 @@ function AuthWallModal({
             Sign in
           </Link>
         </div>
-
-        <p className="mt-5 text-center text-[12px] text-muted-foreground">
-          Already have an account? Use Sign in. Forgot password?{' '}
-          <Link href="/forgot-password" className="text-primary hover:underline">
-            Reset it
-          </Link>
-        </p>
-        {onClose && (
+      <p className="mt-5 text-center text-[12px] text-muted-foreground">
+      Already have an account? Use Sign in.
+      </p>
+               {onClose && (
           <button
             type="button"
             onClick={onClose}
@@ -3972,116 +4002,6 @@ function RequireAuth({ children }: { children: ReactNode }) {
   }
 
   return <>{children}</>;
-}
-
-function ForgotPasswordPage() {
-  const auth = useAuth() as any;
-  const supabaseClient = auth.supabase;
-  const [email, setEmail] = useState('');
-  const [status, setStatus] = useState<'idle' | 'loading' | 'sent' | 'error'>(
-    'idle',
-  );
-  const [message, setMessage] = useState('');
-
-  const onSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setMessage('');
-    const clean = email.trim();
-    if (!clean || !clean.includes('@')) {
-      setStatus('error');
-      setMessage('Enter a valid email address.');
-      return;
-    }
-    if (!supabaseClient?.auth?.resetPasswordForEmail) {
-      setStatus('error');
-      setMessage(
-        'Supabase client missing. Export supabase from auth-context.',
-      );
-      return;
-    }
-
-    setStatus('loading');
-    try {
-      const redirectTo = `${window.location.origin}/sign-in`;
-      const { error } = await supabaseClient.auth.resetPasswordForEmail(clean, {
-        redirectTo,
-      });
-      if (error) throw error;
-      setStatus('sent');
-      setMessage(
-        'Check your email for a reset link. It may take a minute to arrive.',
-      );
-    } catch (err: any) {
-      setStatus('error');
-      setMessage(err?.message || 'Could not send reset email. Try again.');
-    }
-  };
-
-  return (
-    <div className="mx-auto max-w-md space-y-8 pt-10 pb-16">
-      <div>
-        <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
-          Account recovery
-        </p>
-        <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
-          Forgot password
-        </h1>
-        <p className="mt-3 text-[15px] leading-6 text-muted-foreground">
-          Enter the email you used to sign up. We will send a reset link.
-        </p>
-      </div>
-
-      <form onSubmit={onSubmit} className="space-y-5">
-        <div>
-          <label
-            htmlFor="forgot-email"
-            className="mb-2 block text-[13px] font-semibold"
-          >
-            Email
-          </label>
-          <input
-            id="forgot-email"
-            type="email"
-            autoComplete="email"
-            autoFocus
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            placeholder="you@email.com"
-            className="h-12 w-full rounded-xl border border-white/15 bg-card px-4 text-[15px] font-medium outline-none transition focus:border-primary"
-          />
-        </div>
-
-        {message && (
-          <p
-            className={`rounded-lg border px-3 py-2 text-sm ${
-              status === 'sent'
-                ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-300'
-                : status === 'error'
-                ? 'border-red-500/30 bg-red-500/10 text-red-300'
-                : 'border-white/10 text-muted-foreground'
-            }`}
-          >
-            {message}
-          </p>
-        )}
-
-        <button
-          type="submit"
-          disabled={status === 'loading'}
-          className="flex h-12 w-full items-center justify-center rounded-xl bg-primary text-sm font-bold uppercase tracking-[0.12em] text-primary-foreground transition hover:brightness-110 disabled:opacity-60"
-        >
-          {status === 'loading' ? 'Sending…' : 'Send reset link'}
-        </button>
-      </form>
-
-      <p className="text-center text-sm text-muted-foreground">
-        Remembered it?{' '}
-        <Link href="/sign-in" className="font-semibold text-primary hover:underline">
-          Sign in
-        </Link>
-      </p>
-    </div>
-  );
 }
 
 /* =========================================================
@@ -4347,7 +4267,6 @@ function Router() {
           <Route path="/history" component={HistoryPage} />
           <Route path="/profile" component={Profile} />
           <Route path="/sign-in" component={SignInPage} />
-          <Route path="/forgot-password" component={ForgotPasswordPage} />
           <Route path="/sign-up" component={SignUpPage} />
           <Route path="/settings" component={Preferences} />
           <Route path="/about" component={About} />
@@ -4395,10 +4314,8 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <TooltipProvider>
-          <WouterRouter
-            base={import.meta.env.BASE_URL.replace(/\/$/, '')}
-          >
-            <Router />
+          <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, '')}>
+          <Router />
           </WouterRouter>
           <Toaster />
         </TooltipProvider>
