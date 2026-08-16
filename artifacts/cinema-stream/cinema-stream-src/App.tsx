@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react"
 import { MyListPage } from '@/pages/MyListPage';
 import { ProfilePage } from '@/pages/ProfilePage';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
@@ -4314,6 +4315,7 @@ function App() {
           <Router />
           </WouterRouter>
           <Toaster />
+          <Analytics />
         </TooltipProvider>
       </AuthProvider>
     </QueryClientProvider>
