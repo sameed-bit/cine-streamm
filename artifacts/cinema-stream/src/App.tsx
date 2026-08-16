@@ -1,4 +1,4 @@
-import { MyListPage } from '@/pages/MyListPage';
+﻿import { MyListPage } from '@/pages/MyListPage';
 import { ProfilePage } from '@/pages/ProfilePage';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
@@ -42,11 +42,13 @@ import {
 } from 'lucide-react';
 
 import { ErrorBoundary } from '@/components/error-boundary';
+import { useTheme } from 'next-themes';
+import { Sun, Moon } from 'lucide-react';
 import { VideoPlayer } from '@/components/VideoPlayer';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 
-// Supabase auth — put these files in src/ (or adjust paths):
+// Supabase auth â€” put these files in src/ (or adjust paths):
 //   src/lib/supabase.ts   OR  src/supabase.ts
 //   src/auth-context.tsx
 //   src/AuthPages.tsx
@@ -125,7 +127,7 @@ type Video = {
 const poster = (path: string | null | undefined, size = 'w500') =>
   path ? `${TMDB_IMG}${size}${path}` : '';
 
-const year = (date?: string | null) => date?.slice(0, 4) || '—';
+const year = (date?: string | null) => date?.slice(0, 4) || 'â€”';
 
 const duration = (runtime?: number | null) =>
   runtime ? `${Math.floor(runtime / 60)}h ${runtime % 60}m` : 'Feature';
@@ -210,7 +212,7 @@ function userHistoryKey(userId: string) {
 
 function getWatchHistory(): Media[] {
   const uid = getActiveUserId();
-  if (!uid) return []; // signed out → empty history
+  if (!uid) return []; // signed out â†’ empty history
   return uniqueMedia(safeJson<Media[]>(userHistoryKey(uid), []));
 }
 
@@ -259,7 +261,7 @@ function normalizeProgressPercent(
       return 0;
     }
   }
-  // Some players report 0–1 instead of 0–100
+  // Some players report 0â€“1 instead of 0â€“100
   if (value > 0 && value <= 1) value *= 100;
   return Math.min(100, Math.max(0, value));
 }
@@ -689,7 +691,7 @@ function Skeleton({ className = '' }: { className?: string }) {
 
 function LoadingRail() {
   return (
-    <div className="stagger-grid grid grid-cols-2 min-[400px]:grid-cols-3 gap-2.5 sm:grid-cols-4 lg:grid-cols-6">
+    <div className="stagger-grid grid grid-cols-3 gap-2.5 sm:grid-cols-4 lg:grid-cols-6">
       {Array.from({ length: 6 }).map((_, i) => (
         <Skeleton key={i} className="aspect-[2/3]" />
       ))}
@@ -788,7 +790,7 @@ function TrailerModal({
       >
         <div className="min-w-0">
           <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-primary">
-            Theater mode · Official trailer
+            Theater mode Â· Official trailer
           </p>
           <h3 className="mt-0.5 truncate text-base font-semibold text-white sm:text-lg">
             {title}
@@ -804,7 +806,7 @@ function TrailerModal({
         </button>
       </div>
 
-      {/* Full-bleed theater stage – truly centered */}
+      {/* Full-bleed theater stage â€“ truly centered */}
       <div className="relative z-10 flex min-h-0 flex-1 items-center justify-center px-3 py-14 sm:px-8 sm:py-16">
         <div
           className="relative overflow-hidden bg-black shadow-[0_0_80px_rgba(0,0,0,0.9)] sm:rounded-lg"
@@ -936,7 +938,7 @@ function MediaCard({
           </span>
         </Link>
 
-        {/* Resume progress line – where the user left off */}
+        {/* Resume progress line â€“ where the user left off */}
         {showProgress && (
           <div
             className="pointer-events-none absolute inset-x-0 bottom-0 z-[5] h-1.5 bg-black/50"
@@ -953,26 +955,19 @@ function MediaCard({
         )}
       </div>
 
-      <div className="flex items-start justify-between gap-1 pt-1 sm:pt-1.5">
-        <Link
-          href={href}
-          className="line-clamp-1 text-[11px] sm:text-xs font-medium text-foreground transition hover:text-primary"
+      <div className="flex items-center justify-between gap-1 pt-1 sm:pt-1.5">
+        <motion.div
+          className="flex items-center gap-1 font-mono text-[10px] text-red-500"
+          whileHover={{ x: 3 }}
         >
-          {item.title}
-        </Link>
+          <Star className="h-3.5 w-3.5 fill-red-500 text-red-500" />
+          {item.vote_average ? item.vote_average.toFixed(1) : 'NR'}
+        </motion.div>
 
         <span className="shrink-0 font-mono text-[10px] text-muted-foreground">
           {year(item.release_date)}
         </span>
       </div>
-
-      <motion.div
-        className="mt-0.5 flex items-center gap-1 font-mono text-[10px] text-red-500"
-        whileHover={{ x: 3 }}
-      >
-        <Star className="h-3.5 w-3.5 fill-red-500 text-red-500" />
-        {item.vote_average ? item.vote_average.toFixed(1) : 'NR'}
-      </motion.div>
     </motion.div>
   );
 }
@@ -1000,10 +995,10 @@ function Rail({
     <section className="space-y-5">
       <div className="flex items-end justify-between border-b border-white/10 pb-3">
         <div>
-          <p className="font-mono text-[9px] font-medium uppercase tracking-[0.12em] text-primary">
+          <p className="font-mono text-xs sm:text-sm font-semibold uppercase tracking-[0.12em] text-primary">
             {eyebrow || 'Curated for tonight'}
           </p>
-          <h2 className="mt-0.5 text-sm font-semibold tracking-tight text-foreground sm:text-base">
+          <h2 className="mt-1 text-lg font-semibold tracking-tight text-foreground sm:text-xl">
             {title}
           </h2>
         </div>
@@ -1019,7 +1014,7 @@ function Rail({
       </div>
 
       {cleanItems.length ? (
-        <div className="stagger-grid grid grid-cols-2 min-[400px]:grid-cols-3 gap-x-2 gap-y-4 sm:grid-cols-4 sm:gap-y-6 lg:grid-cols-6">
+        <div className="stagger-grid grid grid-cols-3 gap-x-2 gap-y-4 sm:grid-cols-4 sm:gap-y-6 lg:grid-cols-6">
           {cleanItems.map(item => (
             <MediaCard
               key={mediaKey(item)}
@@ -1038,10 +1033,14 @@ function Rail({
 }
 
 /* =========================================================
-   SHELL – Bigger & Bolder Navbar
+   SHELL â€“ Bigger & Bolder Navbar
    ========================================================= */
 
-/** Navbar account buttons — Sign in / Sign up or Profile + avatar */
+/** Navbar account buttons â€” Sign in / Sign up or Profile + avatar */
+function ThemeToggle() {
+  return null;
+}
+
 function AuthNavActions() {
   const { user, loading } = useAuth();
  
@@ -1132,11 +1131,11 @@ function Shell({ children }: { children: ReactNode }) {
         <div className="mx-auto flex h-11 sm:h-12 md:h-14 lg:h-16 max-w-[1480px] items-center gap-2 px-3 sm:gap-3 sm:px-5 lg:gap-5 lg:px-10">
           <Link href="/" className="flex min-w-0 shrink-0 items-center gap-2 group">
             <span className="shrink-0 transition group-hover:scale-105 group-hover:brightness-110">
-              <BrandLogo size={22} className="sm:hidden" />
+              <BrandLogo size={32} className="sm:hidden" />
               <BrandLogo size={30} className="hidden sm:block lg:hidden" />
-              <BrandLogo size={36} className="hidden lg:block" />
+              <BrandLogo size={52} className="hidden lg:block" />
             </span>
-            <span className="text-[11px] sm:text-sm font-semibold tracking-tight text-foreground">
+            <span className="text-base sm:text-sm lg:text-xl font-semibold tracking-tight text-foreground">
               Cine <span className="text-primary">Stream</span>
             </span>
           </Link>
@@ -1184,6 +1183,7 @@ function Shell({ children }: { children: ReactNode }) {
             >
               <History className="h-5 w-5 stroke-[2.25]" />
             </Link>
+            <ThemeToggle />
             <AuthNavActions />
           </div>
         </div>
@@ -1194,11 +1194,20 @@ function Shell({ children }: { children: ReactNode }) {
         className={`animate-fade-in mx-auto max-w-[1480px] px-3 sm:px-5 lg:px-10 ${!['/search', '/sign-in', '/sign-up'].includes(location) ? 'pt-12 sm:pt-14 lg:pt-16 pb-16 lg:pb-12' : 'pt-12 sm:pt-14 lg:pt-16 pb-12'}`}
         key={location}
       >
+        {['/movies', '/tv-shows', '/anime', '/my-list'].includes(location) && (
+          <Link
+            href="/"
+            className="mt-10 sm:mt-12 mb-4 inline-flex items-center gap-2 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground hover:text-foreground"
+          >
+            <ArrowLeft className="h-3.5 w-3.5" />
+            Back
+          </Link>
+        )}
         {children}
       </main>
  
 
-      {/* Mobile bottom tab bar — Netflix-style */}
+      {/* Mobile bottom tab bar â€” Netflix-style */}
       {!['/search', '/sign-in', '/sign-up'].includes(location) && (
         <nav
           className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 lg:hidden safe-bottom"
@@ -1229,8 +1238,8 @@ function Shell({ children }: { children: ReactNode }) {
                       : 'flex min-w-0 flex-1 flex-col items-center justify-center gap-0.5 text-white/50 transition active:text-white/80'
                   }
                 >
-                  <Icon className={active ? 'h-4 w-4' : 'h-3.5 w-3.5'} strokeWidth={active ? 2.25 : 2} />
-                  <span className="truncate text-[8px] font-semibold tracking-wide">{label}</span>
+                  <Icon className={active ? 'h-[18px] w-[18px]' : 'h-4 w-4'} strokeWidth={active ? 2.25 : 2} />
+                  <span className="truncate text-[9px] font-semibold tracking-wide">{label}</span>
                 </Link>
               );
             })}
@@ -1343,9 +1352,9 @@ function Shell({ children }: { children: ReactNode }) {
  
           {/* Bottom bar */}
           <div className="mt-10 flex flex-col gap-2 border-t border-white/8 pt-5 text-[11px] text-white/35 sm:flex-row sm:items-center sm:justify-between">
-            <p>© {new Date().getFullYear()} Cine Stream. All rights reserved.</p>
+            <p>Â© {new Date().getFullYear()} Cine Stream. All rights reserved.</p>
             <p className="text-white/30">
-              Built for discovery · Guest-first by default
+              Built for discovery Â· Guest-first by default
             </p>
           </div>
         </div>
@@ -1354,7 +1363,7 @@ function Shell({ children }: { children: ReactNode }) {
   );
 }
 /* =========================================================
-   PAGE INTRO – Bigger text
+   PAGE INTRO â€“ Bigger text
    ========================================================= */
 
 function PageIntro({
@@ -1367,9 +1376,9 @@ function PageIntro({
   copy: string;
 }) {
   return (
-    <div className="max-w-2xl">
+    <div className="max-w-2xl lg:max-w-3xl">
       <p
-        className="hidden sm:block text-[11px] font-semibold tracking-[-0.01em] sm:text-xs"
+        className="hidden sm:block text-[11px] font-semibold tracking-[-0.01em] sm:text-xs lg:text-sm"
         style={{
           color: 'hsl(353 78% 62%)',
           letterSpacing: '0.01em',
@@ -1378,11 +1387,11 @@ function PageIntro({
         {kicker}
       </p>
 
-      <h1 className="mt-1.5 text-lg font-semibold leading-snug tracking-tight text-foreground sm:text-xl">
+      <h1 className="mt-1.5 text-lg font-semibold leading-snug tracking-tight text-foreground sm:text-xl lg:text-3xl">
         {title}
       </h1>
 
-      <p className="mt-1.5 text-xs font-normal leading-relaxed text-muted-foreground sm:text-sm">
+      <p className="mt-1.5 text-xs font-normal leading-relaxed text-muted-foreground sm:text-sm lg:text-base">
         {copy}
       </p>
     </div>
@@ -1535,9 +1544,9 @@ function Home() {
         />
       )}
 
-      {/* HERO – brighter image + soft ambient background */}
+      {/* HERO â€“ brighter image + soft ambient background */}
       <section
-        className="relative -mx-3 sm:-mx-5 min-h-[260px] sm:min-h-[320px] md:min-h-[380px] lg:min-h-[420px] overflow-hidden border-b border-white/10 lg:-mx-10"
+        className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen -mt-12 sm:-mt-14 lg:-mt-16 min-h-[260px] sm:min-h-[320px] md:min-h-[380px] lg:min-h-[420px] overflow-hidden border-b border-white/10"
         style={{
           fontFamily:
             '-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif',
@@ -1554,9 +1563,9 @@ function Home() {
           />
         ) : null}
 
-        {/* Light readability overlays – image stays filled & vivid */}
-        <div className="absolute inset-0 bg-gradient-to-r from-background/45 via-background/10 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" />
+        {/* Light readability overlays â€“ image stays filled & vivid */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-transparent" />
 
         <div className="relative flex min-h-[260px] sm:min-h-[320px] md:min-h-[380px] lg:min-h-[420px] max-w-2xl flex-col justify-end px-4 pb-8 sm:px-5 sm:pb-12 lg:px-10 lg:pb-16">
@@ -1567,7 +1576,7 @@ function Home() {
             {hero?.overview ||
               'A handpicked stream of films and series for the hours when everything else goes quiet.'}
           </p>
-          <div className="mt-5 flex flex-wrap items-center gap-2">
+          <div className="mt-1.5 sm:mt-5 flex flex-wrap items-center gap-1 sm:gap-2">
             <Link
               href={
                 hero
@@ -1909,7 +1918,7 @@ function Browse({ type }: { type: 'movie' | 'tv' }) {
   } else {
     content = (
       <>
-        <div className="stagger-grid grid grid-cols-2 min-[400px]:grid-cols-3 gap-x-2 gap-y-4 sm:grid-cols-4 sm:gap-y-7 lg:grid-cols-6">
+        <div className="stagger-grid grid grid-cols-3 gap-x-2 gap-y-4 sm:grid-cols-4 sm:gap-y-7 lg:grid-cols-6">
           {displayItems.map(item => (
             <MediaCard
               key={mediaKey(item)}
@@ -1926,7 +1935,7 @@ function Browse({ type }: { type: 'movie' | 'tv' }) {
           <div className="flex flex-col items-center gap-4 pb-12 pt-6">
             {result.isFetching ? (
               <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                Loading more titles…
+                Loading more titlesâ€¦
               </span>
             ) : (
               <button
@@ -1942,7 +1951,7 @@ function Browse({ type }: { type: 'movie' | 'tv' }) {
         {!hasMore && displayItems.length > 0 && (
           <div className="flex justify-center py-10">
             <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-              End of catalog · {displayItems.length} unique titles
+              End of catalog Â· {displayItems.length} unique titles
             </span>
           </div>
         )}
@@ -1968,7 +1977,7 @@ function Browse({ type }: { type: 'movie' | 'tv' }) {
             key={key}
             data-testid={`button-category-${key}`}
             onClick={() => setCategory(key as Category)}
-            className={`rounded-2xl border px-3 py-1.5 text-[11px] font-semibold tracking-tight transition backdrop-blur-md ${
+            className={`rounded-2xl border px-2.5 py-1 text-[10px] lg:px-4 lg:py-2 lg:text-sm font-semibold tracking-tight transition backdrop-blur-md ${
               category === key
                 ? 'border-primary/60 bg-primary text-primary-foreground shadow-lg shadow-primary/25'
                 : 'border-white/20 bg-white/10 text-white/80 hover:border-white/35 hover:bg-white/16 hover:text-foreground'
@@ -1978,7 +1987,7 @@ function Browse({ type }: { type: 'movie' | 'tv' }) {
           </button>
         ))}
 
-        <div className="ml-auto grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:items-center">
+        <div className="mt-2 w-full grid grid-cols-2 gap-2 sm:mt-0 sm:ml-auto sm:w-auto sm:flex sm:flex-wrap sm:items-center">
           <GlassDropdown
             label="Filter by genre"
             value={genreId}
@@ -2132,7 +2141,7 @@ function AnimePage() {
       <PageIntro
         kicker="Drawn worlds"
         title="Anime"
-        copy="Animation from Japan and beyond — series and films worth staying up for."
+        copy="Animation from Japan and beyond â€” series and films worth staying up for."
       />
 
       <div className="flex flex-wrap items-center gap-2.5">
@@ -2145,7 +2154,7 @@ function AnimePage() {
           <button
             key={key}
             onClick={() => setMediaType(key)}
-            className={`rounded-2xl border px-3 py-1.5 text-[11px] font-semibold tracking-tight transition backdrop-blur-md ${
+            className={`rounded-2xl border px-2.5 py-1 text-[10px] lg:px-4 lg:py-2 lg:text-sm font-semibold tracking-tight transition backdrop-blur-md ${
               mediaType === key
                 ? 'border-primary/60 bg-primary text-primary-foreground shadow-lg shadow-primary/25'
                 : 'border-white/20 bg-white/10 text-white/80 hover:border-white/35 hover:bg-white/16 hover:text-foreground'
@@ -2155,7 +2164,7 @@ function AnimePage() {
           </button>
         ))}
 
-        <div className="ml-auto grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:items-center">
+        <div className="mt-2 w-full grid grid-cols-2 gap-2 sm:mt-0 sm:ml-auto sm:w-auto sm:flex sm:flex-wrap sm:items-center">
           <GlassDropdown
             label="Filter anime by genre"
             value={genreId}
@@ -2197,7 +2206,7 @@ function AnimePage() {
         <QueryMessage error retry={() => result.refetch()} />
       ) : (
         <>
-          <div className="stagger-grid grid grid-cols-2 min-[400px]:grid-cols-3 gap-x-2 gap-y-4 sm:grid-cols-4 sm:gap-y-7 lg:grid-cols-6">
+          <div className="stagger-grid grid grid-cols-3 gap-x-2 gap-y-4 sm:grid-cols-4 sm:gap-y-7 lg:grid-cols-6">
             {allItems.map(item => (
               <MediaCard
                 key={mediaKey(item)}
@@ -2213,7 +2222,7 @@ function AnimePage() {
           {hasMore && result.isFetching && (
             <div className="flex justify-center py-6">
               <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.15em] text-muted-foreground">
-                Loading more anime…
+                Loading more animeâ€¦
               </span>
             </div>
           )}
@@ -2221,7 +2230,7 @@ function AnimePage() {
           {!hasMore && allItems.length > 0 && (
             <div className="flex justify-center py-10">
               <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                End of catalog · {allItems.length} titles
+                End of catalog Â· {allItems.length} titles
               </span>
             </div>
           )}
@@ -2253,7 +2262,7 @@ function HistoryPage() {
         <PageIntro
           kicker="Your recent screenings"
           title="Watch History"
-          copy="Everything you’ve started on this device. Pick up any title right where you left it."
+          copy="Everything youâ€™ve started on this device. Pick up any title right where you left it."
         />
         {items.length > 0 && (
           <button
@@ -2270,7 +2279,7 @@ function HistoryPage() {
       </div>
 
       {items.length ? (
-        <div className="stagger-grid grid grid-cols-2 min-[400px]:grid-cols-3 gap-2.5 sm:grid-cols-4 lg:grid-cols-6">
+        <div className="stagger-grid grid grid-cols-3 gap-2.5 sm:grid-cols-4 lg:grid-cols-6">
           {items.map(item => (
             <MediaCard
               key={mediaKey(item)}
@@ -2331,7 +2340,7 @@ function Genres() {
   const hasExtraFilters = !!(yearFilter || countryFilter);
   const useDiscover = !!selected || hasExtraFilters;
 
-  // Trending (default view — no genre / year / country)
+  // Trending (default view â€” no genre / year / country)
   const trending = useGetTrending(
     { page },
     { query: { enabled: !useDiscover } },
@@ -2441,7 +2450,7 @@ function Genres() {
         copy="Start with a feeling. We will take care of the rest."
       />
 
-      {/* Genre buttons – each genre appears only once */}
+      {/* Genre buttons â€“ each genre appears only once */}
       {genres.isLoading ? (
         <div className="flex w-full flex-wrap gap-1.5">
           {Array.from({ length: 20 }).map((_, i) => (
@@ -2556,7 +2565,7 @@ function Genres() {
                   ORIGIN_COUNTRIES.find(c => c.code === countryFilter)?.label,
                 ]
                   .filter(Boolean)
-                  .join(' · ')}
+                  .join(' Â· ')}
               </span>
             )}
           </h2>
@@ -2577,7 +2586,7 @@ function Genres() {
           <QueryMessage error retry={() => activeQuery.refetch()} />
         ) : (
           <>
-            <div className="stagger-grid grid grid-cols-2 min-[400px]:grid-cols-3 gap-x-2 gap-y-4 sm:grid-cols-4 sm:gap-y-6 lg:grid-cols-6">
+            <div className="stagger-grid grid grid-cols-3 gap-x-2 gap-y-4 sm:grid-cols-4 sm:gap-y-6 lg:grid-cols-6">
               {allItems.map(item => (
                 <MediaCard
                   key={mediaKey(item)}
@@ -2593,7 +2602,7 @@ function Genres() {
             {hasMore && activeQuery.isFetching && (
               <div className="flex justify-center py-6">
                 <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.15em] text-muted-foreground">
-                  Loading more…
+                  Loading moreâ€¦
                 </span>
               </div>
             )}
@@ -2601,7 +2610,7 @@ function Genres() {
             {!hasMore && allItems.length > 0 && (
               <div className="flex justify-center py-8">
                 <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.15em] text-muted-foreground">
-                  End of catalog · {allItems.length} titles
+                  End of catalog Â· {allItems.length} titles
                 </span>
               </div>
             )}
@@ -2792,6 +2801,13 @@ function SearchPage() {
 
   return (
     <div className="space-y-8 pt-6">
+      <Link
+        href="/"
+        className="inline-flex items-center gap-2 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground hover:text-foreground"
+      >
+        <ArrowLeft className="h-3.5 w-3.5" />
+        Back
+      </Link>
       <PageIntro
         kicker="Find your next thing"
         title="Search the catalog"
@@ -2806,12 +2822,12 @@ function SearchPage() {
             autoFocus
             value={input}
             onChange={e => setInput(e.target.value)}
-            placeholder="Try “quiet sci-fi” or a name"
+            placeholder="Try &quot;quiet sci-fi&quot; or a name"
             className="h-14 w-full rounded-xl border border-white/15 bg-card pl-12 pr-4 text-sm font-medium text-foreground placeholder:text-muted-foreground transition focus:border-primary focus:outline-none"
           />
         </div>
 
-        {/* Year / Genre / Country – shared liquid glass design (no overlap) */}
+        {/* Year / Genre / Country â€“ shared liquid glass design (no overlap) */}
         <div className="grid grid-cols-3 gap-2.5 sm:contents">
           <div className="min-w-0 sm:w-[7.5rem] sm:shrink-0 lg:w-36">
             <GlassDropdown
@@ -2876,12 +2892,12 @@ function SearchPage() {
       </div>
 
       {/* Type filters + active chips */}
-      <div className="flex flex-wrap items-center gap-2 border-b border-white/10 pb-5">
+      <div className="flex flex-nowrap sm:flex-wrap items-center gap-2 overflow-x-auto sm:overflow-visible border-b border-white/10 pb-5">
         {filters.map(([value, label]) => (
           <button
             key={value}
             onClick={() => setFilter(value)}
-            className={`px-4 py-2 text-sm font-bold uppercase tracking-[0.1em] transition ${
+            className={`shrink-0 px-2.5 py-1.5 text-xs sm:px-4 sm:py-2 sm:text-sm font-bold uppercase tracking-[0.1em] transition ${
               filter === value
                 ? 'text-primary'
                 : 'text-muted-foreground hover:text-foreground'
@@ -2937,7 +2953,7 @@ function SearchPage() {
             <LoadingRail />
           ) : (
             <>
-              <div className="stagger-grid grid grid-cols-2 min-[400px]:grid-cols-3 gap-x-2 gap-y-4 sm:grid-cols-4 sm:gap-y-6 lg:grid-cols-6">
+              <div className="stagger-grid grid grid-cols-3 gap-x-2 gap-y-4 sm:grid-cols-4 sm:gap-y-6 lg:grid-cols-6">
                 {displayItems.map(item => (
                   <MediaCard
                     key={mediaKey(item)}
@@ -2951,7 +2967,7 @@ function SearchPage() {
               {hasMore && activeQuery.isFetching && (
                 <div className="flex justify-center py-6">
                   <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.15em] text-muted-foreground">
-                    Loading more…
+                    Loading moreâ€¦
                   </span>
                 </div>
               )}
@@ -2975,7 +2991,7 @@ function SearchPage() {
                         ?.label,
                     ]
                       .filter(Boolean)
-                      .join(' · ') || 'Filtered'
+                      .join(' Â· ') || 'Filtered'
                   : 'Titles'}
               </h2>
               <span className="font-mono text-[12px] text-muted-foreground">
@@ -2985,7 +3001,7 @@ function SearchPage() {
 
             {displayItems.length ? (
               <>
-                <div className="stagger-grid grid grid-cols-2 min-[400px]:grid-cols-3 gap-x-2 gap-y-4 sm:grid-cols-4 sm:gap-y-6 lg:grid-cols-6">
+                <div className="stagger-grid grid grid-cols-3 gap-x-2 gap-y-4 sm:grid-cols-4 sm:gap-y-6 lg:grid-cols-6">
                   {displayItems.map(item => (
                     <MediaCard
                       key={mediaKey(item)}
@@ -2999,14 +3015,14 @@ function SearchPage() {
                 {hasMore && activeQuery.isFetching && (
                   <div className="flex justify-center py-6">
                     <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.15em] text-muted-foreground">
-                      Loading more…
+                      Loading moreâ€¦
                     </span>
                   </div>
                 )}
                 {!hasMore && displayItems.length > 0 && (
                   <div className="flex justify-center py-8">
                     <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.15em] text-muted-foreground">
-                      End of results · {displayItems.length} titles
+                      End of results Â· {displayItems.length} titles
                     </span>
                   </div>
                 )}
@@ -3129,7 +3145,7 @@ function Detail({ type }: { type: 'movie' | 'tv' }) {
               className="hidden aspect-[2/3] max-w-[200px] rounded-2xl shadow-2xl sm:block"
               eager
             />
-            <div className="max-w-2xl">
+            <div className="max-w-2xl lg:max-w-3xl">
               <Link
                 href={type === 'movie' ? '/movies' : '/tv-shows'}
                 className="mb-7 inline-flex items-center gap-2 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground hover:text-foreground"
@@ -3141,26 +3157,26 @@ function Detail({ type }: { type: 'movie' | 'tv' }) {
                 {type === 'movie' ? 'Feature film' : 'Original series'} /{' '}
                 {year(detail.release_date)}
               </p>
-              <h1 className="mt-1 text-xl font-semibold leading-tight tracking-tight sm:text-xl md:text-2xl">
+              <h1 className="mt-1 text-sm font-semibold leading-tight tracking-tight sm:text-xl md:text-2xl">
                 {detail.title}
               </h1>
-              <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
+              <div className="mt-1 sm:mt-5 flex flex-wrap items-center gap-x-1.5 sm:gap-x-5 gap-y-0.5 sm:gap-y-2 font-mono text-[8px] sm:text-[12px] uppercase tracking-wider text-muted-foreground">
                 <span className="flex items-center gap-1.5 text-red-500">
                   <Star className="h-3.5 w-3.5 fill-red-500 text-red-500" />
                   {detail.vote_average.toFixed(1)} / 10
                 </span>
                 <span>{duration(detail.runtime)}</span>
                 <span>
-                  {detail.genres?.map(g => g.name).join(' · ')}
+                  {detail.genres?.map(g => g.name).join(' Â· ')}
                 </span>
               </div>
-              <p className="mt-2 max-w-xl text-xs sm:text-sm leading-relaxed text-muted-foreground line-clamp-3 sm:line-clamp-none">
+              <p className="mt-1 sm:mt-2 max-w-xl text-[9px] sm:text-sm leading-snug sm:leading-relaxed text-muted-foreground line-clamp-2 sm:line-clamp-none">
                 {detail.overview || 'A story waiting to be discovered.'}
               </p>
-              <div className="mt-5 flex flex-wrap items-center gap-2">
+              <div className="mt-1.5 sm:mt-5 flex flex-wrap items-center gap-1 sm:gap-2">
                 <PlayOrAuthLink
                   href={href}
-                  className="inline-flex h-8 items-center gap-1.5 rounded-md bg-primary px-3 text-[11px] font-semibold uppercase tracking-wide text-primary-foreground shadow-sm sm:px-3.5"
+                  className="inline-flex h-5 sm:h-8 items-center gap-0.5 sm:gap-1.5 rounded-md bg-primary px-1.5 sm:px-3 text-[8px] sm:text-[11px] font-semibold uppercase tracking-wide text-primary-foreground shadow-sm sm:px-3.5"
                 >
                   <Play className="h-4.5 w-4.5 fill-current" />
                   Watch now
@@ -3170,7 +3186,7 @@ function Detail({ type }: { type: 'movie' | 'tv' }) {
                   <button
                     onClick={() => setShowTrailer(true)}
                     data-testid="button-trailer"
-                    className="inline-flex h-8 items-center gap-1.5 rounded-md border border-white/20 bg-black/30 px-3 text-[11px] font-semibold uppercase tracking-wide text-foreground backdrop-blur transition hover:border-primary hover:text-primary sm:px-3.5"
+                    className="inline-flex h-5 sm:h-8 items-center gap-0.5 sm:gap-1.5 rounded-md border border-white/20 bg-black/30 px-1.5 sm:px-3 text-[8px] sm:text-[11px] font-semibold uppercase tracking-wide text-foreground backdrop-blur transition hover:border-primary hover:text-primary sm:px-3.5"
                   >
                     <Clapperboard className="h-4.5 w-4.5" />
                     Trailer
@@ -3180,7 +3196,7 @@ function Detail({ type }: { type: 'movie' | 'tv' }) {
                 {user && (
                   <button
                     onClick={() => toggle(item)}
-                    className="inline-flex h-8 items-center gap-1.5 rounded-md border border-white/20 px-3 text-[11px] font-semibold uppercase tracking-wide sm:px-3.5"
+                    className="inline-flex h-5 sm:h-8 items-center gap-0.5 sm:gap-1.5 rounded-md border border-white/20 px-1.5 sm:px-3 text-[8px] sm:text-[11px] font-semibold uppercase tracking-wide sm:px-3.5"
                   >
                     <Bookmark
                       className={`h-4.5 w-4.5 ${
@@ -3198,7 +3214,7 @@ function Detail({ type }: { type: 'movie' | 'tv' }) {
         </div>
       </div>
 
-      <div className="space-y-6 sm:space-y-8 px-0 sm:px-5 py-8 sm:py-10 lg:px-10">
+      <div className="space-y-6 sm:space-y-8 px-4 sm:px-5 py-8 sm:py-10 lg:px-10">
         <section className="grid gap-8 md:grid-cols-[1fr_2fr]">
           <div>
             <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
@@ -3233,12 +3249,12 @@ function Detail({ type }: { type: 'movie' | 'tv' }) {
                 <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
                   On screen
                 </p>
-                <h2 className="mt-1 text-sm font-semibold tracking-tight">The cast</h2>
+                <h2 className="mt-1 text-xs sm:text-sm font-semibold tracking-tight">The cast</h2>
               </div>
             </div>
-            <div className="stagger-grid grid grid-cols-2 min-[400px]:grid-cols-3 gap-2.5 sm:grid-cols-4 lg:grid-cols-6">
+            <div className="stagger-grid grid grid-cols-3 gap-2.5 sm:grid-cols-4 lg:grid-cols-6">
               {detail.cast.slice(0, 6).map(actor => (
-                <div key={actor.id} className="rounded-xl border border-white/10 bg-card p-2.5">
+                <div key={actor.id} className="rounded-lg sm:rounded-xl border border-white/10 bg-card p-1 sm:p-2.5">
                   <div className="aspect-square overflow-hidden rounded-lg bg-muted">
                     {actor.profile_path ? (
                       <img
@@ -3253,7 +3269,7 @@ function Detail({ type }: { type: 'movie' | 'tv' }) {
                       </div>
                     )}
                   </div>
-                  <p className="mt-2.5 text-xs font-semibold">{actor.name}</p>
+                  <p className="mt-1 sm:mt-2.5 text-[8px] sm:text-xs font-semibold line-clamp-1">{actor.name}</p>
                   <p className="mt-1 line-clamp-1 text-sm text-muted-foreground">
                     {actor.character}
                   </p>
@@ -3273,7 +3289,7 @@ function SeasonList({ seasons, id }: { seasons: Season[]; id: number }) {
     seasons.find(x => x.season_number > 0)?.season_number || 1,
   );
   const currentSeason = seasons.find(s => s.season_number === open);
-  // Show all episodes (previously hard-capped at 8 — that was a bug)
+  // Show all episodes (previously hard-capped at 8 â€” that was a bug)
   const count = Math.max(0, currentSeason?.episode_count || 0);
 
   return (
@@ -3338,7 +3354,7 @@ function Watch({ type }: { type: 'movie' | 'tv' }) {
   }>();
   const id = Number(params.id);
 
-  // Land at the top of the player — no need to scroll up from the footer
+  // Land at the top of the player â€” no need to scroll up from the footer
   useEffect(() => {
     window.scrollTo(0, 0);
     document.documentElement.scrollTop = 0;
@@ -3473,7 +3489,7 @@ function LocalCollection() {
           </div>
         </div>
       ) : items.length ? (
-        <div className="stagger-grid grid grid-cols-2 min-[400px]:grid-cols-3 gap-2.5 sm:grid-cols-4 lg:grid-cols-6">
+        <div className="stagger-grid grid grid-cols-3 gap-2.5 sm:grid-cols-4 lg:grid-cols-6">
           {items.map(item => (
             <MediaCard
               key={mediaKey(item)}
@@ -3552,7 +3568,7 @@ function Profile() {
               ? user.email
               : 'Tune the way Cine Stream feels on this device.'}
           </p>
-          <div className="mt-5 flex flex-wrap items-center gap-2">
+          <div className="mt-1.5 sm:mt-5 flex flex-wrap items-center gap-1 sm:gap-2">
             {!loading && !user && (
               <>
                 <Link
@@ -3982,7 +3998,7 @@ function RequireAuth({ children }: { children: ReactNode }) {
     return (
       <div className="flex min-h-[50vh] items-center justify-center">
         <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-          Checking account…
+          Checking accountâ€¦
         </span>
       </div>
     );
@@ -4059,7 +4075,7 @@ function ProfileGate({ children }: { children: ReactNode }) {
 function CompleteProfile() {
   const auth = useAuth() as any;
   const { user, loading } = auth;
-  // supabase client from auth-context (export it there) — avoids wrong path imports
+  // supabase client from auth-context (export it there) â€” avoids wrong path imports
   const supabaseClient = auth.supabase;
   const [, setLocation] = useLocation();
 
@@ -4137,7 +4153,7 @@ function CompleteProfile() {
     return (
       <div className="flex min-h-[60vh] items-center justify-center">
         <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-          Loading…
+          Loadingâ€¦
         </span>
       </div>
     );
@@ -4208,7 +4224,7 @@ function CompleteProfile() {
           disabled={saving}
           className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-primary text-sm font-bold uppercase tracking-[0.12em] text-primary-foreground transition hover:brightness-110 disabled:opacity-60"
         >
-          {saving ? 'Saving…' : 'Continue'}
+          {saving ? 'Savingâ€¦' : 'Continue'}
           {!saving && <ArrowRight className="h-4 w-4" />}
         </button>
       </form>
@@ -4321,3 +4337,87 @@ function App() {
 }
 
 export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

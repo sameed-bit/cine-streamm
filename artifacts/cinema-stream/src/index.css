@@ -1,38 +1,99 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 
 @theme {
-  --color-background: #0b0404;
-  --color-foreground: #f5f5f5;
+  --color-background: var(--app-background);
+  --color-foreground: var(--app-foreground);
 
-  --color-card: #130707;
-  --color-card-foreground: #f5f5f5;
+  --color-card: var(--app-card);
+  --color-card-foreground: var(--app-card-foreground);
 
-  --color-popover: #110606;
-  --color-popover-foreground: #f5f5f5;
+  --color-popover: var(--app-popover);
+  --color-popover-foreground: var(--app-popover-foreground);
 
   /* Primary buttons */
-  --color-primary: #9B0F06;
-  --color-primary-foreground: #ffffff;
+  --color-primary: var(--app-primary);
+  --color-primary-foreground: var(--app-primary-foreground);
 
-  --color-secondary: #1a0909;
-  --color-secondary-foreground: #e5e5e5;
+  --color-secondary: var(--app-secondary);
+  --color-secondary-foreground: var(--app-secondary-foreground);
 
-  --color-muted: #160808;
-  --color-muted-foreground: #a3a3a3;
+  --color-muted: var(--app-muted);
+  --color-muted-foreground: var(--app-muted-foreground);
 
-  --color-accent: #b8130a;
-  --color-accent-foreground: #ffffff;
+  --color-accent: var(--app-accent);
+  --color-accent-foreground: var(--app-accent-foreground);
 
-  --color-destructive: #7f1d1d;
-  --color-destructive-foreground: #ffffff;
+  --color-destructive: var(--app-destructive);
+  --color-destructive-foreground: var(--app-destructive-foreground);
 
-  --color-border: #2c1010;
-  --color-input: #2c1010;
-  --color-ring: #9B0F06;
+  --color-border: var(--app-border);
+  --color-input: var(--app-input);
+  --color-ring: var(--app-ring);
 
   --radius-lg: 0.75rem;
   --radius-md: 0.5rem;
   --radius-sm: 0.35rem;
+}
+
+:root,
+.dark {
+  --app-background: #0b0404;
+  --app-foreground: #f5f5f5;
+
+  --app-card: #130707;
+  --app-card-foreground: #f5f5f5;
+
+  --app-popover: #110606;
+  --app-popover-foreground: #f5f5f5;
+
+  --app-primary: #9B0F06;
+  --app-primary-foreground: #ffffff;
+
+  --app-secondary: #1a0909;
+  --app-secondary-foreground: #e5e5e5;
+
+  --app-muted: #160808;
+  --app-muted-foreground: #a3a3a3;
+
+  --app-accent: #b8130a;
+  --app-accent-foreground: #ffffff;
+
+  --app-destructive: #7f1d1d;
+  --app-destructive-foreground: #ffffff;
+
+  --app-border: #2c1010;
+  --app-input: #2c1010;
+  --app-ring: #9B0F06;
+}
+
+.light {
+  --app-background: #faf7f5;
+  --app-foreground: #1a1010;
+
+  --app-card: #ffffff;
+  --app-card-foreground: #1a1010;
+
+  --app-popover: #ffffff;
+  --app-popover-foreground: #1a1010;
+
+  --app-primary: #9B0F06;
+  --app-primary-foreground: #ffffff;
+
+  --app-secondary: #f0e6e4;
+  --app-secondary-foreground: #1a1010;
+
+  --app-muted: #f0e6e4;
+  --app-muted-foreground: #6b5555;
+
+  --app-accent: #b8130a;
+  --app-accent-foreground: #ffffff;
+
+  --app-destructive: #dc2626;
+  --app-destructive-foreground: #ffffff;
+
+  --app-border: #e5d9d6;
+  --app-input: #e5d9d6;
+  --app-ring: #9B0F06;
 }
 
 @layer base {
@@ -45,7 +106,7 @@
       "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    /* Base 16px — better readability + consistent rem scaling */
+    /* Base 16px â€” better readability + consistent rem scaling */
     font-size: 14px;
     /* Prevent iOS text size adjust */
     -webkit-text-size-adjust: 100%;
@@ -53,18 +114,26 @@
   }
 
   body {
-    background-color: #0b0404;
+    background-color: var(--color-background);
     color: var(--color-foreground);
     font-weight: 450;
     line-height: 1.5;
-    background-image: 
+    background-image:
       radial-gradient(ellipse 140% 110% at 50% -30%, rgba(155, 15, 6, 0.7), transparent 58%),
       radial-gradient(ellipse 100% 80% at 90% 10%, rgba(155, 15, 6, 0.4), transparent 55%),
       radial-gradient(ellipse 90% 70% at 10% 90%, rgba(155, 15, 6, 0.3), transparent 55%);
     background-attachment: fixed;
+    transition: background-color 0.3s ease, color 0.3s ease;
     /* Kill horizontal overflow on mobile */
     overflow-x: hidden;
     min-width: 0;
+  }
+
+  .light body {
+    background-image:
+      radial-gradient(ellipse 140% 110% at 50% -30%, rgba(155, 15, 6, 0.12), transparent 58%),
+      radial-gradient(ellipse 100% 80% at 90% 10%, rgba(155, 15, 6, 0.08), transparent 55%),
+      radial-gradient(ellipse 90% 70% at 10% 90%, rgba(155, 15, 6, 0.06), transparent 55%);
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -84,7 +153,7 @@
     height: 7px;
   }
   ::-webkit-scrollbar-track {
-    background: #0b0404;
+    background: var(--color-background);
   }
   ::-webkit-scrollbar-thumb {
     background: #9B0F06;
@@ -112,11 +181,21 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+.light .glass {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
 .glass-strong {
   background: rgba(14, 5, 5, 0.75);
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.light .glass-strong {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .skeleton-shimmer {
@@ -128,6 +207,16 @@
   );
   background-size: 200% 100%;
   animation: shimmer 1.6s ease-in-out infinite;
+}
+
+.light .skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    #f0e6e4 25%,
+    #e5d9d6 50%,
+    #f0e6e4 75%
+  );
+  background-size: 200% 100%;
 }
 
 @keyframes shimmer {
@@ -201,3 +290,11 @@
 a, button {
   -webkit-tap-highlight-color: transparent;
 }
+
+
+
+
+
+
+
+
