@@ -1,4 +1,4 @@
-﻿import { MyListPage } from '@/pages/MyListPage';
+import { MyListPage } from '@/pages/MyListPage';
 import { ProfilePage } from '@/pages/ProfilePage';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
@@ -48,7 +48,7 @@ import { VideoPlayer } from '@/components/VideoPlayer';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 
-// Supabase auth â€” put these files in src/ (or adjust paths):
+// Supabase auth — put these files in src/ (or adjust paths):
 //   src/lib/supabase.ts   OR  src/supabase.ts
 //   src/auth-context.tsx
 //   src/AuthPages.tsx
@@ -127,7 +127,7 @@ type Video = {
 const poster = (path: string | null | undefined, size = 'w500') =>
   path ? `${TMDB_IMG}${size}${path}` : '';
 
-const year = (date?: string | null) => date?.slice(0, 4) || 'â€”';
+const year = (date?: string | null) => date?.slice(0, 4) || '—';
 
 const duration = (runtime?: number | null) =>
   runtime ? `${Math.floor(runtime / 60)}h ${runtime % 60}m` : 'Feature';
@@ -212,7 +212,7 @@ function userHistoryKey(userId: string) {
 
 function getWatchHistory(): Media[] {
   const uid = getActiveUserId();
-  if (!uid) return []; // signed out â†’ empty history
+  if (!uid) return []; // signed out → empty history
   return uniqueMedia(safeJson<Media[]>(userHistoryKey(uid), []));
 }
 
@@ -261,7 +261,7 @@ function normalizeProgressPercent(
       return 0;
     }
   }
-  // Some players report 0â€“1 instead of 0â€“100
+  // Some players report 0–1 instead of 0–100
   if (value > 0 && value <= 1) value *= 100;
   return Math.min(100, Math.max(0, value));
 }
@@ -790,7 +790,7 @@ function TrailerModal({
       >
         <div className="min-w-0">
           <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-primary">
-            Theater mode Â· Official trailer
+            Theater mode · Official trailer
           </p>
           <h3 className="mt-0.5 truncate text-base font-semibold text-white sm:text-lg">
             {title}
@@ -806,7 +806,7 @@ function TrailerModal({
         </button>
       </div>
 
-      {/* Full-bleed theater stage â€“ truly centered */}
+      {/* Full-bleed theater stage – truly centered */}
       <div className="relative z-10 flex min-h-0 flex-1 items-center justify-center px-3 py-14 sm:px-8 sm:py-16">
         <div
           className="relative overflow-hidden bg-black shadow-[0_0_80px_rgba(0,0,0,0.9)] sm:rounded-lg"
@@ -938,7 +938,7 @@ function MediaCard({
           </span>
         </Link>
 
-        {/* Resume progress line â€“ where the user left off */}
+        {/* Resume progress line – where the user left off */}
         {showProgress && (
           <div
             className="pointer-events-none absolute inset-x-0 bottom-0 z-[5] h-1.5 bg-black/50"
@@ -1033,10 +1033,10 @@ function Rail({
 }
 
 /* =========================================================
-   SHELL â€“ Bigger & Bolder Navbar
+   SHELL – Bigger & Bolder Navbar
    ========================================================= */
 
-/** Navbar account buttons â€” Sign in / Sign up or Profile + avatar */
+/** Navbar account buttons — Sign in / Sign up or Profile + avatar */
 function ThemeToggle() {
   return null;
 }
@@ -1207,7 +1207,7 @@ function Shell({ children }: { children: ReactNode }) {
       </main>
  
 
-      {/* Mobile bottom tab bar â€” Netflix-style */}
+      {/* Mobile bottom tab bar — Netflix-style */}
       {!['/search', '/sign-in', '/sign-up'].includes(location) && (
         <nav
           className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 lg:hidden safe-bottom"
@@ -1351,7 +1351,7 @@ function Shell({ children }: { children: ReactNode }) {
           </div>
  
           {/* Bottom bar */}
-          <div className="mt-10 flex flex-col gap-2 border-t border-white/8 pt-5 text-[11px] text-white/35 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-10 flex flex-col gap-2 border-t border-white/8 pt-5 pb-24 sm:pb-5 text-[11px] text-white/35 sm:flex-row sm:items-center sm:justify-between">
             <p>&copy; {new Date().getFullYear()} Cine Stream. All rights reserved.</p>
             <p className="text-white/30">
               Developed by Sameed
@@ -1365,7 +1365,7 @@ function Shell({ children }: { children: ReactNode }) {
   );
 }
 /* =========================================================
-   PAGE INTRO â€“ Bigger text
+   PAGE INTRO – Bigger text
    ========================================================= */
 
 function PageIntro({
@@ -1546,7 +1546,7 @@ function Home() {
         />
       )}
 
-      {/* HERO â€“ brighter image + soft ambient background */}
+      {/* HERO – brighter image + soft ambient background */}
       <section
         className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen -mt-12 sm:-mt-14 lg:-mt-16 min-h-[260px] sm:min-h-[320px] md:min-h-[380px] lg:min-h-[420px] overflow-hidden border-b border-white/10"
         style={{
@@ -1565,7 +1565,7 @@ function Home() {
           />
         ) : null}
 
-        {/* Light readability overlays â€“ image stays filled & vivid */}
+        {/* Light readability overlays – image stays filled & vivid */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-transparent" />
@@ -1937,7 +1937,7 @@ function Browse({ type }: { type: 'movie' | 'tv' }) {
           <div className="flex flex-col items-center gap-4 pb-12 pt-6">
             {result.isFetching ? (
               <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                Loading more titlesâ€¦
+                Loading more titles…
               </span>
             ) : (
               <button
@@ -1953,7 +1953,7 @@ function Browse({ type }: { type: 'movie' | 'tv' }) {
         {!hasMore && displayItems.length > 0 && (
           <div className="flex justify-center py-10">
             <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-              End of catalog Â· {displayItems.length} unique titles
+              End of catalog · {displayItems.length} unique titles
             </span>
           </div>
         )}
@@ -2143,7 +2143,7 @@ function AnimePage() {
       <PageIntro
         kicker="Drawn worlds"
         title="Anime"
-        copy="Animation from Japan and beyond â€” series and films worth staying up for."
+        copy="Animation from Japan and beyond — series and films worth staying up for."
       />
 
       <div className="flex flex-wrap items-center gap-2.5">
@@ -2224,7 +2224,7 @@ function AnimePage() {
           {hasMore && result.isFetching && (
             <div className="flex justify-center py-6">
               <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.15em] text-muted-foreground">
-                Loading more animeâ€¦
+                Loading more anime…
               </span>
             </div>
           )}
@@ -2232,7 +2232,7 @@ function AnimePage() {
           {!hasMore && allItems.length > 0 && (
             <div className="flex justify-center py-10">
               <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                End of catalog Â· {allItems.length} titles
+                End of catalog · {allItems.length} titles
               </span>
             </div>
           )}
@@ -2264,7 +2264,7 @@ function HistoryPage() {
         <PageIntro
           kicker="Your recent screenings"
           title="Watch History"
-          copy="Everything youâ€™ve started on this device. Pick up any title right where you left it."
+          copy="Everything you’ve started on this device. Pick up any title right where you left it."
         />
         {items.length > 0 && (
           <button
@@ -2342,7 +2342,7 @@ function Genres() {
   const hasExtraFilters = !!(yearFilter || countryFilter);
   const useDiscover = !!selected || hasExtraFilters;
 
-  // Trending (default view â€” no genre / year / country)
+  // Trending (default view — no genre / year / country)
   const trending = useGetTrending(
     { page },
     { query: { enabled: !useDiscover } },
@@ -2452,7 +2452,7 @@ function Genres() {
         copy="Start with a feeling. We will take care of the rest."
       />
 
-      {/* Genre buttons â€“ each genre appears only once */}
+      {/* Genre buttons – each genre appears only once */}
       {genres.isLoading ? (
         <div className="flex w-full flex-wrap gap-1.5">
           {Array.from({ length: 20 }).map((_, i) => (
@@ -2567,7 +2567,7 @@ function Genres() {
                   ORIGIN_COUNTRIES.find(c => c.code === countryFilter)?.label,
                 ]
                   .filter(Boolean)
-                  .join(' Â· ')}
+                  .join(' · ')}
               </span>
             )}
           </h2>
@@ -2604,7 +2604,7 @@ function Genres() {
             {hasMore && activeQuery.isFetching && (
               <div className="flex justify-center py-6">
                 <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.15em] text-muted-foreground">
-                  Loading moreâ€¦
+                  Loading more…
                 </span>
               </div>
             )}
@@ -2612,7 +2612,7 @@ function Genres() {
             {!hasMore && allItems.length > 0 && (
               <div className="flex justify-center py-8">
                 <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.15em] text-muted-foreground">
-                  End of catalog Â· {allItems.length} titles
+                  End of catalog · {allItems.length} titles
                 </span>
               </div>
             )}
@@ -2829,7 +2829,7 @@ function SearchPage() {
           />
         </div>
 
-        {/* Year / Genre / Country â€“ shared liquid glass design (no overlap) */}
+        {/* Year / Genre / Country – shared liquid glass design (no overlap) */}
         <div className="grid grid-cols-3 gap-2.5 sm:contents">
           <div className="min-w-0 sm:w-[7.5rem] sm:shrink-0 lg:w-36">
             <GlassDropdown
@@ -2969,7 +2969,7 @@ function SearchPage() {
               {hasMore && activeQuery.isFetching && (
                 <div className="flex justify-center py-6">
                   <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.15em] text-muted-foreground">
-                    Loading moreâ€¦
+                    Loading more…
                   </span>
                 </div>
               )}
@@ -2993,7 +2993,7 @@ function SearchPage() {
                         ?.label,
                     ]
                       .filter(Boolean)
-                      .join(' Â· ') || 'Filtered'
+                      .join(' · ') || 'Filtered'
                   : 'Titles'}
               </h2>
               <span className="font-mono text-[12px] text-muted-foreground">
@@ -3017,14 +3017,14 @@ function SearchPage() {
                 {hasMore && activeQuery.isFetching && (
                   <div className="flex justify-center py-6">
                     <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.15em] text-muted-foreground">
-                      Loading moreâ€¦
+                      Loading more…
                     </span>
                   </div>
                 )}
                 {!hasMore && displayItems.length > 0 && (
                   <div className="flex justify-center py-8">
                     <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.15em] text-muted-foreground">
-                      End of results Â· {displayItems.length} titles
+                      End of results · {displayItems.length} titles
                     </span>
                   </div>
                 )}
@@ -3169,7 +3169,7 @@ function Detail({ type }: { type: 'movie' | 'tv' }) {
                 </span>
                 <span>{duration(detail.runtime)}</span>
                 <span>
-                  {detail.genres?.map(g => g.name).join(' Â· ')}
+                  {detail.genres?.map(g => g.name).join(' · ')}
                 </span>
               </div>
               <p className="mt-1 sm:mt-2 max-w-xl text-[9px] sm:text-sm leading-snug sm:leading-relaxed text-muted-foreground line-clamp-2 sm:line-clamp-none">
@@ -3291,7 +3291,7 @@ function SeasonList({ seasons, id }: { seasons: Season[]; id: number }) {
     seasons.find(x => x.season_number > 0)?.season_number || 1,
   );
   const currentSeason = seasons.find(s => s.season_number === open);
-  // Show all episodes (previously hard-capped at 8 â€” that was a bug)
+  // Show all episodes (previously hard-capped at 8 — that was a bug)
   const count = Math.max(0, currentSeason?.episode_count || 0);
 
   return (
@@ -3356,7 +3356,7 @@ function Watch({ type }: { type: 'movie' | 'tv' }) {
   }>();
   const id = Number(params.id);
 
-  // Land at the top of the player â€” no need to scroll up from the footer
+  // Land at the top of the player — no need to scroll up from the footer
   useEffect(() => {
     window.scrollTo(0, 0);
     document.documentElement.scrollTop = 0;
@@ -4000,7 +4000,7 @@ function RequireAuth({ children }: { children: ReactNode }) {
     return (
       <div className="flex min-h-[50vh] items-center justify-center">
         <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-          Checking accountâ€¦
+          Checking account…
         </span>
       </div>
     );
@@ -4077,7 +4077,7 @@ function ProfileGate({ children }: { children: ReactNode }) {
 function CompleteProfile() {
   const auth = useAuth() as any;
   const { user, loading } = auth;
-  // supabase client from auth-context (export it there) â€” avoids wrong path imports
+  // supabase client from auth-context (export it there) — avoids wrong path imports
   const supabaseClient = auth.supabase;
   const [, setLocation] = useLocation();
 
@@ -4155,7 +4155,7 @@ function CompleteProfile() {
     return (
       <div className="flex min-h-[60vh] items-center justify-center">
         <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-          Loadingâ€¦
+          Loading…
         </span>
       </div>
     );
@@ -4226,7 +4226,7 @@ function CompleteProfile() {
           disabled={saving}
           className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-primary text-sm font-bold uppercase tracking-[0.12em] text-primary-foreground transition hover:brightness-110 disabled:opacity-60"
         >
-          {saving ? 'Savingâ€¦' : 'Continue'}
+          {saving ? 'Saving…' : 'Continue'}
           {!saving && <ArrowRight className="h-4 w-4" />}
         </button>
       </form>
