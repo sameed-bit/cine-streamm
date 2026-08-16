@@ -1352,9 +1352,11 @@ function Shell({ children }: { children: ReactNode }) {
  
           {/* Bottom bar */}
           <div className="mt-10 flex flex-col gap-2 border-t border-white/8 pt-5 text-[11px] text-white/35 sm:flex-row sm:items-center sm:justify-between">
-            <p>Â© {new Date().getFullYear()} Cine Stream. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} Cine Stream. All rights reserved.</p>
             <p className="text-white/30">
-              Built for discovery Â· Guest-first by default
+              Developed by Sameed
+              <br />
+              Lahore, Punjab 54000, Pakistan
             </p>
           </div>
         </div>
@@ -4337,6 +4339,7 @@ function App() {
 }
 
 export default App;
+
 
 
 
